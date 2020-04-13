@@ -6,98 +6,57 @@ import styles from './index.less';
 import { Input } from 'antd';
 import { drag, formContainer } from '@/constant/className';
 import { className } from '@/utils';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-const test = [
-  {
-    id: 1,
-    title: '容器',
-    icon: '',
-    render: () => {
-      return <Input />;
-    },
-  },
-  {
-    id: 2,
-    title: '容器',
-    icon: '',
-    render: () => {
-      return <Input />;
-    },
-  },
-  {
-    id: 3,
-    title: '容器',
-    icon: '',
-    render: () => {
-      return <Input />;
-    },
-  },
-  {
-    id: 4,
-    title: '容器',
-    icon: '',
-    render: () => {
-      return <Input />;
-    },
-  },
-  {
-    id: 5,
-    title: '容器',
-    icon: '',
-    render: () => {
-      return <Input />;
-    },
-  },
-];
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 const components = [
-  {
-    title: '表单容器',
-    icon: 'form-container',
-    childrens: [
-      {
-        id: 1,
-        title: '容器',
-        icon: '',
-        render: () => {
-          return <Input />;
-        },
-      },
-      {
-        id: 2,
-        title: '容器',
-        icon: '',
-        render: () => {
-          return <Input />;
-        },
-      },
-      {
-        id: 3,
-        title: '容器',
-        icon: '',
-        render: () => {
-          return <Input />;
-        },
-      },
-    ],
-  },
   {
     title: '表单组件',
     icon: 'form-container-1',
     childrens: [
       {
         id: 4,
-        title: '容器',
-        icon: '',
+        title: '单行文本框',
+        icon: 'iconinput',
         render: () => {
           return <Input />;
         },
       },
       {
         id: 5,
-        title: '容器',
-        icon: '',
+        title: '多行文本框',
+        icon: 'icontextarea',
+        render: () => {
+          return <Input />;
+        },
+      },
+      {
+        id: 6,
+        title: '多行文本框',
+        icon: 'icontextarea',
+        render: () => {
+          return <Input />;
+        },
+      },
+      {
+        id: 7,
+        title: '多行文本框',
+        icon: 'icontextarea',
+        render: () => {
+          return <Input />;
+        },
+      },
+      {
+        id: 8,
+        title: '多行文本框',
+        icon: 'icontextarea',
+        render: () => {
+          return <Input />;
+        },
+      },
+      {
+        id: 19,
+        title: '多行文本框',
+        icon: 'icontextarea',
         render: () => {
           return <Input />;
         },
@@ -115,12 +74,12 @@ const getRenderItem = items => (provided, snapshot, rubric) => {
       {...provided.dragHandleProps}
       ref={provided.innerRef}
     >
-      `11111111111111111111111111111111`
+      1234
     </div>
   );
 };
 export default props => {
-  const renderItem = getRenderItem(test);
+  //   const renderItem = getRenderItem(components);
   return (
     <div className={styles['side']}>
       {map(components, (com, key) => {
@@ -138,7 +97,6 @@ export default props => {
                     {map(childrens, (child, index) => {
                       return (
                         <Draggable
-                          type="weijie"
                           draggableId={`${child.id}`}
                           key={`${child.id}`}
                           index={index}
@@ -154,17 +112,32 @@ export default props => {
                                     drag,
                                     styles['side-group-item'],
                                   )}
+                                  title={child.title}
                                 >
-                                  {child.title + child.id}
+                                  <i
+                                    className={className(
+                                      'iconfont',
+                                      child.icon,
+                                    )}
+                                  ></i>
+                                  {child.title}
                                 </div>
                                 {snapshot.isDragging && (
                                   <div
                                     className={className(
                                       drag,
                                       styles['side-group-item'],
+                                      styles['side-group-item-move'],
                                     )}
+                                    title={child.title}
                                   >
-                                    {child.title + child.id}
+                                    <i
+                                      className={className(
+                                        'iconfont',
+                                        child.icon,
+                                      )}
+                                    ></i>
+                                    {child.title}
                                   </div>
                                 )}
                               </React.Fragment>
@@ -173,7 +146,6 @@ export default props => {
                         </Draggable>
                       );
                     })}
-                    {provided.placeholder}
                   </div>
                 );
               }}

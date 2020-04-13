@@ -10,16 +10,22 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 export default props => {
   return (
     <Droppable direction="horizontal" droppableId="container">
-      {(provided, snapshot) => (
-        <div
-          ref={provided.innerRef}
-          className={styles['container']}
-          {...provided.droppableProps}
-        >
-          <h2>I am a droppable!</h2>
-          {provided.placeholder}
-        </div>
-      )}
+      {(provided, snapshot) => {
+        console.log(provided);
+        console.log(snapshot);
+        return (
+          <div
+            ref={provided.innerRef}
+            className={className(styles['container'], {
+              [styles['container-move']]: snapshot.isDraggingOver,
+            })}
+            {...provided.droppableProps}
+          >
+            <h2>I am a droppable!</h2>
+            {provided.placeholder}
+          </div>
+        );
+      }}
     </Droppable>
   );
 };

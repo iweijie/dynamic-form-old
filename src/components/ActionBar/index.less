@@ -1,12 +1,19 @@
 @import '../../styles/var.less';
 
-.container {
-  flex: 1;
-  height: 100%;
-  padding: 30px;
+.action-bar {
+  height: 45px;
+  border-bottom: 1px solid @border-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
 }
 
-.container-move {
-  border: 1px dashed @mainColor;
+.bar-btn {
+  margin-right: 40px;
   color: @mainColor;
+  cursor: pointer;
+  &:last-child {
+    margin-right: 0;
+  }
 }

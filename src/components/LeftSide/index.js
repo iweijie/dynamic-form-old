@@ -119,7 +119,7 @@ export default props => {
                                       'iconfont',
                                       child.icon,
                                     )}
-                                  ></i>
+                                  />
                                   {child.title}
                                 </div>
                                 {snapshot.isDragging && (
@@ -136,7 +136,7 @@ export default props => {
                                         'iconfont',
                                         child.icon,
                                       )}
-                                    ></i>
+                                    />
                                     {child.title}
                                   </div>
                                 )}

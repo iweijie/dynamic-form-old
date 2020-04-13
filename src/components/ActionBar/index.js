@@ -14,39 +14,30 @@ const list = [
     icon: '',
   },
   {
+    name: '预览',
+    icon: '',
+  },
+  {
     name: '查看配置JSON',
     icon: '',
   },
   {
-    name: '导出',
-    icon: '',
-  },
-  {
-    name: '导出',
+    name: '清除',
     icon: '',
   },
 ];
 
 export default props => {
-  return <div className={styles['action-bar']}></div>;
+  return (
+    <div className={styles['action-bar']}>
+      {map(list, item => {
+        return (
+          <div className={styles['bar-btn']}>
+            {/* <span>{item.name}</span> */}
+            <span>{item.name}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
-
-{
-  /* <div class="action-bar">
-<el-button icon="el-icon-video-play" type="text" @click="run">
-  运行
-</el-button>
-<el-button icon="el-icon-view" type="text" @click="showJson">
-  查看json
-</el-button>
-<el-button icon="el-icon-download" type="text" @click="download">
-  导出vue文件
-</el-button>
-<el-button class="copy-btn-main" icon="el-icon-document-copy" type="text" @click="copy">
-  复制代码
-</el-button>
-<el-button class="delete-btn" icon="el-icon-delete" type="text" @click="empty">
-  清空
-</el-button>
-</div> */
-}

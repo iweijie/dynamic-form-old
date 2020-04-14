@@ -8,7 +8,8 @@ import { drag, formContainer } from '@/constant/className';
 import ActionBar from '../ActionBar';
 import { className } from '@/utils';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-export default props => {
+
+export default ({ fileds, linkge }) => {
   return (
     <div className={styles['container-wrap']}>
       <ActionBar />

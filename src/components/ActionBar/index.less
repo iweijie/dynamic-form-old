@@ -11,8 +11,14 @@
 
 .bar-btn {
   margin-right: 40px;
-  color: @mainColor;
   cursor: pointer;
+  color: rgba(0, 0, 0, 0.65);
+  &:hover {
+    color: @mainColor;
+  }
+  > i {
+    margin-right: @small;
+  }
   &:last-child {
     margin-right: 0;
   }

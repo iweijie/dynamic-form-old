@@ -9,12 +9,13 @@ import styles from './index.less';
 
 const handleDragEnd = result => {
   console.log(result);
+  debugger;
 };
-const IndexPage = ({ index, dispatch }) => {
+const DynamicFormConfig = ({ components, dispatch }) => {
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <div className={styles['dynamic-form']}>
-        <LeftSide />
+        <LeftSide components={components} />
         <Container />
         <RightSide />
       </div>
@@ -22,7 +23,8 @@ const IndexPage = ({ index, dispatch }) => {
   );
 };
 
-export default connect(({ index, loading }) => ({
-  index,
-  loading: loading.models.index,
-}))(IndexPage);
+export default connect(({ form }) => {
+  return {
+    components: form.components,
+  };
+})(DynamicFormConfig);

@@ -8,63 +8,6 @@ import { drag, formContainer } from '@/constant/className';
 import { className } from '@/utils';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-const components = [
-  {
-    title: '表单组件',
-    icon: 'form-container-1',
-    childrens: [
-      {
-        id: 4,
-        title: '单行文本框',
-        icon: 'iconinput',
-        render: () => {
-          return <Input />;
-        },
-      },
-      {
-        id: 5,
-        title: '多行文本框',
-        icon: 'icontextarea',
-        render: () => {
-          return <Input />;
-        },
-      },
-      {
-        id: 6,
-        title: '多行文本框',
-        icon: 'icontextarea',
-        render: () => {
-          return <Input />;
-        },
-      },
-      {
-        id: 7,
-        title: '多行文本框',
-        icon: 'icontextarea',
-        render: () => {
-          return <Input />;
-        },
-      },
-      {
-        id: 8,
-        title: '多行文本框',
-        icon: 'icontextarea',
-        render: () => {
-          return <Input />;
-        },
-      },
-      {
-        id: 19,
-        title: '多行文本框',
-        icon: 'icontextarea',
-        render: () => {
-          return <Input />;
-        },
-      },
-    ],
-  },
-];
-
 const getRenderItem = items => (provided, snapshot, rubric) => {
   const { id } = items[rubric.source.index];
   console.log(provided, snapshot, rubric);
@@ -78,7 +21,7 @@ const getRenderItem = items => (provided, snapshot, rubric) => {
     </div>
   );
 };
-export default props => {
+export default ({ components }) => {
   //   const renderItem = getRenderItem(components);
   return (
     <div className={styles['side']}>

@@ -1,6 +1,5 @@
 import { Effect, Reducer, Subscription } from 'umi';
-import { Input } from 'antd';
-const { TextArea } = Input;
+import FormCom from '../../../toyBricks/index';
 
 const IndexModel = {
   namespace: 'form',
@@ -9,32 +8,7 @@ const IndexModel = {
     fields: [],
     // field/container/ruugo
     active: [],
-    components: [
-      {
-        title: '表单组件',
-        icon: 'form-container-1',
-        childrens: [
-          {
-            id: 4,
-            title: '单行文本框',
-            icon: 'iconinput',
-            type: 'input',
-            render: () => {
-              return <Input />;
-            },
-          },
-          {
-            id: 5,
-            title: '多行文本框',
-            icon: 'icontextarea',
-            type: 'textarea',
-            render: () => {
-              return <Textarea />;
-            },
-          },
-        ],
-      },
-    ],
+    components: [FormCom],
   },
 
   effects: {

@@ -26,22 +26,22 @@ export default ({ components }) => {
   return (
     <div className={styles['side']}>
       {map(components, (com, key) => {
-        const { childrens, title, icon } = com;
+        const { children, title, type } = com;
         return (
-          <div key={com.icon} className={styles['side-group']}>
+          <div key={type} className={styles['side-group']}>
             <div className={styles['side-group-title']}>{title}</div>
-            <Droppable droppableId={`left_${title}`} isDropDisabled={true}>
+            <Droppable droppableId={type} isDropDisabled={true}>
               {provided => {
                 return (
                   <div
                     ref={provided.innerRef}
                     className={styles['side-group-item-wrap']}
                   >
-                    {map(childrens, (child, index) => {
+                    {map(children, (child, index) => {
                       return (
                         <Draggable
-                          draggableId={`${child.id}`}
-                          key={`${child.id}`}
+                          draggableId={child.code}
+                          key={child.code}
                           index={index}
                         >
                           {(provided, snapshot) => {

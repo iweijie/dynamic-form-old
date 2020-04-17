@@ -21,11 +21,3 @@ export const className = (...classNames) => {
   });
   return classNameList.join(' ');
 };
-
-let uuid = 0;
-export const setUUID = obj => {
-  return {
-    ...obj,
-    uuid: ++uuid,
-  };
-};

@@ -9,27 +9,11 @@ import ActionBar from '../ActionBar';
 import { className } from '@/utils';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-export default ({ fileds, linkge }) => {
+export default ({ fileds, linkge, children }) => {
   return (
     <div className={styles['container-wrap']}>
       <ActionBar />
-      <Droppable direction="horizontal" droppableId="container">
-        {(provided, snapshot) => {
-          console.log(provided);
-          console.log(snapshot);
-          return (
-            <div
-              ref={provided.innerRef}
-              className={className(styles['container'], {
-                [styles['container-move']]: snapshot.isDraggingOver,
-              })}
-              {...provided.droppableProps}
-            >
-              {provided.placeholder}
-            </div>
-          );
-        }}
-      </Droppable>
+      {React.Children.only(children)}
     </div>
   );
 };

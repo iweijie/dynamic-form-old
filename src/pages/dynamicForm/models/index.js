@@ -1,24 +1,30 @@
 import { Effect, Reducer, Subscription } from 'umi';
-import FormCom from '../../../toyBricks/index';
+import FormCom from '@/toyBricks/index';
 
 const IndexModel = {
   namespace: 'form',
 
   state: {
     fields: [],
-    // field/container/ruugo
+    // field/container
     active: [],
+    // 左侧菜单可选列项
     components: [FormCom],
+    // 以配置表单的列表项
+    items: [],
   },
 
   effects: {
     *query({ payload }, { call, put }) {},
   },
   reducers: {
-    save(state, action) {
+    changeItems(state, action) {
+      const { payload } = action;
+      const { items } = state;
+      items.push(payload);
       return {
         ...state,
-        ...action.payload,
+        items: [...items],
       };
     },
   },

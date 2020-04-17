@@ -1,17 +1,13 @@
-import Input from './Input';
-import TextArea from './TextArea';
-import InputNumber from './InputNumber';
-import {
-  FormContainer,
-  RouteContainer,
-  ReactComponnetContainer,
-} from './constant';
+import Input from './components/Input';
+import TextArea from './components/TextArea';
+import InputNumber from './components/InputNumber';
+import { ContainerType } from './constant';
 
-export { FormContainer, RouteContainer, ReactComponnetContainer };
+// 导出容器类型
+export { ContainerType };
 
 export default {
   title: '表单组件',
-  icon: 'form-container-1',
-  type: FormContainer,
+  type: ContainerType.Wrap,
   children: [Input, TextArea, InputNumber],
 };

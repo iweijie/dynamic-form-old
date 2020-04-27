@@ -10,40 +10,38 @@ import RightSide from '@/components/RightSide';
 import Container from '@/components/Container';
 import styles from './index.less';
 
-console.log('ContainerType:', ContainerType);
-
 const DynamicFormConfig = ({ components, dispatch, items }) => {
-  const findDragItem = useCallback(code => {}, [components]);
-  const handleDragEnd = useCallback(result => {
-    const { draggableId, destination, source } = result;
-    const { droppableId } = source;
-    const drapItem = get(
-      get(
-        find(components, item => item.type === droppableId),
-        'children',
-        [],
-      ),
-      source.index,
-    );
-    if (!drapItem) return;
-    console.log(dispatch);
+    const findDragItem = useCallback(code => {}, [components]);
+    const handleDragEnd = useCallback(result => {
+        const { draggableId, destination, source } = result;
+        const { droppableId } = source;
+        const drapItem = get(
+            get(
+                find(components, item => item.type === droppableId),
+                'children',
+                [],
+            ),
+            source.index,
+        );
+        if (!drapItem) return;
+        console.log(dispatch);
 
-    dispatch({ type: 'form/changeItems', payload: setUUID(drapItem) });
-  }, []);
-  return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <div className={styles['dynamic-form']}>
-        <LeftSide components={components} />
-        <Container>{FormContainer.render({ items })}</Container>
-        <RightSide />
-      </div>
-    </DragDropContext>
-  );
+        dispatch({ type: 'form/changeItems', payload: setUUID(drapItem) });
+    }, []);
+    return (
+        <DragDropContext onDragEnd={handleDragEnd}>
+            <div className={styles['dynamic-form']}>
+                <LeftSide components={components} />
+                <Container>{FormContainer.render({ items })}</Container>
+                <RightSide />
+            </div>
+        </DragDropContext>
+    );
 };
 
 export default connect(({ form }) => {
-  return {
-    components: form.components,
-    items: form.items,
-  };
+    return {
+        components: form.components,
+        items: form.items,
+    };
 })(DynamicFormConfig);

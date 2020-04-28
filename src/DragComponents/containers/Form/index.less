@@ -1,0 +1,23 @@
+@import '../../styles/var.less';
+
+.container {
+    min-height: 100px;
+    padding: @small;
+    :global(.ant-form) {
+        > div {
+            padding-bottom: 24px;
+            > div {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+.container-wrap {
+    flex: 1;
+    height: 100%;
+}
+
+.container-move {
+    border: 1px dashed @mainColor;
+    color: @mainColor;
+}

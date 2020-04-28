@@ -1,6 +1,3 @@
-import { cloneDeep } from 'lodash';
-import uuid from 'uuid';
-
 export const getRandom = prefix => {
     const str =
         Math.random()
@@ -23,12 +20,4 @@ export const className = (...classNames) => {
         }
     });
     return classNameList.join(' ');
-};
-
-export const clone = obj => {
-    return {
-        ...obj,
-        uuid: uuid(),
-        config: cloneDeep(obj.config) || {},
-    };
 };

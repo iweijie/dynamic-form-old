@@ -1,44 +1,46 @@
 import { Effect, Reducer, Subscription } from 'umi';
-import FormCom from '@/toyBricks/index';
-
+// import FormCom from '@/toyBricks/index';
+import FormCom from '@/DragComponents/index';
 const IndexModel = {
-  namespace: 'form',
+    namespace: 'form',
 
-  state: {
-    fields: [],
-    // field/container
-    active: [],
-    // 左侧菜单可选列项
-    components: [FormCom],
-    // 以配置表单的列表项
-    items: [],
-  },
+    state: {
+        fields: [],
+        // field/container
+        active: [],
+        // 左侧菜单可选列项
+        components: [FormCom],
+        // 以配置表单的列表项
+        items: [],
+    },
 
-  effects: {
-    *query({ payload }, { call, put }) {},
-  },
-  reducers: {
-    changeItems(state, action) {
-      const { payload } = action;
-      const { items } = state;
-      items.push(payload);
-      return {
-        ...state,
-        items: [...items],
-      };
+    effects: {
+        // *query({ payload }, { call, put }) { },
     },
-  },
-  subscriptions: {
-    setup({ dispatch, history }) {
-      return history.listen(({ pathname }) => {
-        if (pathname === '/') {
-          dispatch({
-            type: 'query',
-          });
-        }
-      });
+    reducers: {
+        addItem(state, action) {
+            const { payload } = action;
+            const { items } = state;
+            const { item, target } = payload;
+            items.splice(target, 0, item);
+            return {
+                ...state,
+                items: [...items],
+            };
+        },
+        updateItems(state, action) {
+            const { payload } = action;
+            const { source, target } = payload;
+            const { items } = state;
+            const item = items[source];
+            items.splice(source, 1);
+            items.splice(target, 0, item);
+            return {
+                ...state,
+                items: [...items],
+            };
+        },
     },
-  },
 };
 
 export default IndexModel;

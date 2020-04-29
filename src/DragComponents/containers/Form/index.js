@@ -4,6 +4,7 @@ import { map } from 'lodash';
 import { Form } from 'antd';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { className } from '../../utils/index';
+import Mask from '@/components/Mask';
 import styles from './index.less';
 
 const { Item } = Form;
@@ -40,6 +41,9 @@ export default {
                                             {(provided, snapshot) => {
                                                 return (
                                                     <div
+                                                        className={
+                                                            styles['form-item']
+                                                        }
                                                         ref={provided.innerRef}
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}
@@ -62,4 +66,5 @@ export default {
             </Droppable>
         );
     },
+    config: [],
 };

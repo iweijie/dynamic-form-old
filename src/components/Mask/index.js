@@ -9,6 +9,8 @@ import { map } from 'lodash';
 import styles from './index.less';
 
 export default props => {
-    const { item } = props;
-    return <div className={styles['mask']}></div>;
+    const { item, children } = props;
+    return (
+        <div className={styles['mask']}>{React.Children.only(children)}</div>
+    );
 };

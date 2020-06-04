@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash';
-import uuid from 'uuid';
+import { v1 as uuid } from 'uuid';
 
 export const getRandom = prefix => {
     const str =

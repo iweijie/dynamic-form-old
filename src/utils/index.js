@@ -32,3 +32,7 @@ export const clone = obj => {
         config: cloneDeep(obj.config) || {},
     };
 };
+
+export const isFristCapitalized = str => {
+    return /[A-Z]/.test(str.slice(0, 1));
+};

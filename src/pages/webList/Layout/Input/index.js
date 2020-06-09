@@ -4,5 +4,6 @@ import { Input } from 'antd';
 import { times, map } from 'lodash';
 
 export default props => {
+    console.log(props);
     return <Input {...props} />;
 };

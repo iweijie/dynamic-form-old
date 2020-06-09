@@ -6,8 +6,10 @@ import { ContainerType } from './constant';
 // 导出容器类型
 export { ContainerType };
 
-export default {
-  title: '表单组件',
-  type: ContainerType.Wrap,
-  children: [Input, TextArea, InputNumber],
-};
+export default [
+    {
+        title: '表单组件',
+        type: ContainerType.Wrap,
+        children: [Input, TextArea, InputNumber],
+    },
+];

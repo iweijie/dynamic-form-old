@@ -19,7 +19,7 @@ export default {
     template: () => {},
     render: () => <Input />,
     trigger: ['onChange', 'onBlur', 'onFocus'],
-    linkage: {},
+    actions: {},
     config: {
         field: uuid(),
         label: '单行文本框',

@@ -2,8 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { ContainerType, uuid } from '../../constant';
 
-import { Input } from 'antd';
-const { TextArea } = Input;
+import { InputNumber } from 'antd';
 
 export default {
     title: '数字文本框',
@@ -12,6 +11,6 @@ export default {
     ponput: [ContainerType.Form, ContainerType.Component],
     template: () => {},
     render: ({ form, config, linkage }) => {
-        return <Textarea />;
+        return <InputNumber />;
     },
 };

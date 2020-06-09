@@ -19,7 +19,7 @@ export const data = [
         type: 'formContainer',
         linkage: [],
         config: {},
-        children: [
+        childrens: [
             {
                 type: 'input',
                 config: {},

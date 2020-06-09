@@ -113,6 +113,8 @@ export default ({ components }) => {
                                                     </Draggable>
                                                 );
                                             })}
+
+                                            {provided.placeholder}
                                         </div>
                                     );
                                 }}

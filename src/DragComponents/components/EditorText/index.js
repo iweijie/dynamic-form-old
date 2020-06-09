@@ -2,6 +2,7 @@ import 'braft-editor/dist/index.css';
 import styles from './index.less';
 import React from 'react';
 import BraftEditor from 'braft-editor';
+import { ContainerType } from '../../constant';
 import {
     controls,
     emojis,
@@ -103,6 +104,19 @@ class EditorText extends React.Component {
     };
 }
 
-export default React.forwardRef((props, ref) => {
+const Text = React.forwardRef((props, ref) => {
     return <EditorText {...props} forwardRef={ref} />;
 });
+
+export default {
+    title: '文本编辑框',
+    code: 'Input',
+    icon: 'iconinput',
+    ponput: [ContainerType.Form, ContainerType.Component],
+    template: () => {},
+    render: () => <Text />,
+    trigger: ['onChange', 'onBlur', 'onFocus'],
+    actions: {},
+    config: {},
+    panel: [],
+};

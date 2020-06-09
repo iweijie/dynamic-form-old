@@ -1,32 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './index.less';
 import PropTypes from 'prop-types';
-import { className } from '@/utils';
-import * as AntdIcons from '@ant-design/icons';
-import { isFristCapitalized } from '@/utils/index';
+import { Form } from 'antd';
 
-const { createFromIconfontCN, ...Icons } = AntdIcons;
+const { Item } = Form;
 
-const IconFont = createFromIconfontCN({
-    scriptUrl: [
-        '//at.alicdn.com/t/font_1788044_0dwu4guekcwr.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)
-        '//at.alicdn.com/t/font_1788592_a5xf2bdic3u.js', // icon-shoppingcart, icon-python
-    ],
-});
-
-const Icon = props => {
-    const { type, ...other } = props;
-    if (Icons[type]) {
-        if (!isFristCapitalized(type)) return null;
-        const Com = Icons[type];
-        return <Com {...other} />;
+class GetFormInstance {
+    constructor() {
+        this.stroe = {};
     }
-    return <IconFont {...props} />;
+    getForm(id) {
+        return this.stroe[id];
+    }
+    setForm(id, formInstance) {
+        this.stroe[id] = formInstance;
+    }
+}
+
+const FormLayout = props => {
+    console.log('props:', props);
+    const { children } = props;
+    const [form] = Form.useForm();
+
+    return (
+        <Form name="test" form={form}>
+            {children}
+        </Form>
+    );
 };
 
-Icon.propTypes = {
-    size: PropTypes.number,
-    type: PropTypes.string.isRequired,
+FormLayout.propTypes = {
+    // size: PropTypes.number,
+    // type: PropTypes.string.isRequired,
 };
 
-export default Icon;
+export default FormLayout;

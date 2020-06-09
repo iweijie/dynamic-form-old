@@ -9,7 +9,7 @@ const IndexModel = {
         // field/container
         active: [],
         // 左侧菜单可选列项
-        components: [FormCom],
+        components: FormCom,
         // 以配置表单的列表项
         items: [],
     },
@@ -23,6 +23,7 @@ const IndexModel = {
             const { items } = state;
             const { item, target } = payload;
             items.splice(target, 0, item);
+            console.log('items:', items);
             return {
                 ...state,
                 items: [...items],
@@ -35,6 +36,7 @@ const IndexModel = {
             const item = items[source];
             items.splice(source, 1);
             items.splice(target, 0, item);
+            console.log('items:', items);
             return {
                 ...state,
                 items: [...items],

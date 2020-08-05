@@ -12,6 +12,7 @@ export default defineConfig({
                     component: '@/pages/dynamicFormList',
                 },
                 { path: '/webList', component: '@/pages/webList' },
+                { path: '/form', component: '@/pages/form' },
                 { path: '/', redirect: '/dynamicForm' },
             ],
         },

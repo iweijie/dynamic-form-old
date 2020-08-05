@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './index.less';
 import { times, size, isEmpty, forEach, map } from 'lodash';
 import Row from './Row';
@@ -69,8 +69,8 @@ const p = {
     props: {},
     config: {},
     action: {},
-    useContext,
-    provideContext,
+    useContext: () => {},
+    provideContext: {},
     _styles: '自定义style',
     childrens: [],
 };

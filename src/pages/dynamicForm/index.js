@@ -8,6 +8,7 @@ import FormContainer from '@/DragComponents/containers/Form';
 import LeftSide from '@/components/LeftSide';
 import RightSide from '@/components/RightSide';
 import Container from '@/components/Container';
+import Form from './components/Form';
 import styles from './index.less';
 
 const getContainerForClone = (...res) => {

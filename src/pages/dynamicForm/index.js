@@ -10,6 +10,7 @@ import RightSide from '@/components/RightSide';
 import Container from '@/components/Container';
 import Form from './components/Form';
 import styles from './index.less';
+import Demo from './test';
 
 const getContainerForClone = (...res) => {
     console.log(res);
@@ -62,7 +63,10 @@ const DynamicFormConfig = ({ components, dispatch, items }) => {
         >
             <div className={styles['dynamic-form']}>
                 <LeftSide components={components} />
-                <Container>{FormContainer.render({ items })}</Container>
+                {/* <Container>{FormContainer.render({ items })}</Container> */}
+                <div style={{ flex: 1 }}>
+                    <Demo />
+                </div>
                 <RightSide />
             </div>
         </DragDropContext>

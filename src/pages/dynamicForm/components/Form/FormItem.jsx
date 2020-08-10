@@ -1,18 +1,13 @@
 import React, { Fragment } from 'react';
 import { Form as AntdForm } from 'antd';
-import {
-    InternalField,
-    connect,
-    InternalVirtualField,
-} from '@formily/react-schema-renderer';
-import { MegaLayoutItem } from './FormMegaLayout/index';
+import FormItemFieldJson from '../../FormItemField.json';
 import {
     normalizeCol,
     pickFormItemProps,
     pickNotFormItemProps,
-    log,
 } from './shared';
 import { useFormItem } from './context';
+import { size, map, first, pick, omit } from 'lodash';
 const { Item: AntdFormItem } = AntdForm;
 
 const computeStatus = props => {
@@ -45,6 +40,9 @@ const computeMessage = (errors, warnings) => {
 const ConnectedComponent = Symbol('connected');
 
 export const FormItem = topProps => {
+    const topFormItemProps = useFormItem();
+    topProps = { ...topFormItemProps, ...topProps };
+
     const {
         name,
         initialValue,
@@ -64,7 +62,9 @@ export const FormItem = topProps => {
         props,
         ...itemProps
     } = topProps || {};
-    const topFormItemProps = useFormItem();
+
+    const pickItem = pick(props);
+    const omitItem = omit(props);
 
     const renderComponent = ({ props, state, mutators, form }) => {
         if (!component) {
@@ -141,19 +141,6 @@ export const FormItem = topProps => {
         );
     };
 
-    // if (!component && children) {
-    //     return (
-    //         <InternalVirtualField
-    //             name={name}
-    //             visible={visible}
-    //             display={display}
-    //             props={{ ...topFormItemProps, ...itemProps, ...props }}
-    //         >
-    //             {renderField}
-    //         </InternalVirtualField>
-    //     );
-    // }
-
     return (
         <InternalField
             name={name}
@@ -172,3 +159,24 @@ export const FormItem = topProps => {
         </InternalField>
     );
 };
+
+const MixLayoutItem = props => {
+    const {
+        type,
+        config,
+        props: itemProps,
+        actions,
+        subCollection,
+    } = props.data;
+    const { label } = config;
+    if (size(subCollection) === 0) return null;
+    if (size(subCollection) === 1)
+        return <FormItem>{renderComponent(first(subCollection))}</FormItem>;
+    return (
+        <FormItem name={label}>
+            {map(subCollection, sub => renderComponent(sub, notStyle))}
+        </FormItem>
+    );
+};
+
+export default MixLayoutItem;

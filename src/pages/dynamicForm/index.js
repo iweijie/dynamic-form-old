@@ -8,7 +8,7 @@ import FormContainer from '@/DragComponents/containers/Form';
 import LeftSide from '@/components/LeftSide';
 import RightSide from '@/components/RightSide';
 import Container from '@/components/Container';
-import Form from './components/Form';
+import { Form } from './components/Form';
 import styles from './index.less';
 import Demo from './test';
 
@@ -16,6 +16,21 @@ const getContainerForClone = (...res) => {
     console.log(res);
     return <div>1111</div>;
 };
+
+const subCollection = [
+    {
+        uuid: 2,
+        type: 'ATest',
+        config: {
+            name: 'iweijie',
+            label: '就是一个字',
+            initialValue: 'weijie',
+        },
+        props: {},
+        actions: [],
+        subCollection: [],
+    },
+];
 
 const DynamicFormConfig = ({ components, dispatch, items }) => {
     const handleDragEnd = useCallback(result => {
@@ -65,7 +80,7 @@ const DynamicFormConfig = ({ components, dispatch, items }) => {
                 <LeftSide components={components} />
                 {/* <Container>{FormContainer.render({ items })}</Container> */}
                 <div style={{ flex: 1 }}>
-                    <Demo />
+                    <Form subCollection={subCollection}></Form>
                 </div>
                 <RightSide />
             </div>

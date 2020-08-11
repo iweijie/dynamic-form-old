@@ -6,7 +6,8 @@ import React, {
     useCallback,
 } from 'react';
 import { Form as AForm } from 'antd';
-import FormItem from './FormItem';
+import MixLayoutItem from './FormItem';
+import map from 'lodash/map';
 import { normalizeCol, log } from './shared';
 import { FormItemProvider } from './context';
 const { useForm } = AForm;
@@ -15,6 +16,10 @@ const FormContext = createContext({});
 
 export const Form = props => {
     const {
+        actions,
+        props: configProps,
+        config,
+        type,
         subCollection,
         prefixCls,
         labelAlign,
@@ -36,7 +41,7 @@ export const Form = props => {
 
     const renderChildren = useCallback(subCollection => {
         return map(subCollection, sub => {
-            return <FormItem data={sub} />;
+            return <MixLayoutItem key={sub.uuid} data={sub} />;
         });
     }, []);
 
@@ -52,7 +57,7 @@ export const Form = props => {
                 form,
             }}
         >
-            <Form
+            <AForm
                 {...rest}
                 form={form}
                 onSubmit={onSubmit}
@@ -62,7 +67,7 @@ export const Form = props => {
                 layout={inline ? 'inline' : props.layout}
             >
                 {renderChildren(subCollection)}
-            </Form>
+            </AForm>
         </FormItemProvider>
     );
 };

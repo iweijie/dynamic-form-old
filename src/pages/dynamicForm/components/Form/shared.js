@@ -48,7 +48,7 @@ var __spreadArrays =
 import React from 'react';
 import { PreviewText } from '@formily/react-shared-components';
 import { version } from 'antd';
-import { each } from '@formily/shared';
+import each from 'lodash/each';
 export * from '@formily/shared';
 export var isAntdV4 = /^4\./.test(version);
 export var autoScrollInValidateFailed = function(formRef) {

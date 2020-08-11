@@ -1,181 +1,59 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo, useCallback } from 'react';
 import { Form as AntdForm } from 'antd';
 import FormItemFieldJson from '../../FormItemField.json';
-import {
-    normalizeCol,
-    pickFormItemProps,
-    pickNotFormItemProps,
-} from './shared';
+import getComponent from '../../getComponent';
 import { useFormItem } from './context';
-import { size, map, first, pick, omit } from 'lodash';
-const { Item: AntdFormItem } = AntdForm;
-
-const computeStatus = props => {
-    if (props.loading) {
-        return 'validating';
-    }
-    if (props.invalid) {
-        return 'error';
-    }
-    if (props.warnings && props.warnings.length) {
-        return 'warning';
-    }
-    return '';
-};
-
-const computeMessage = (errors, warnings) => {
-    const messages = [].concat(errors || [], warnings || []);
-    return messages.length
-        ? messages.map((message, index) =>
-              React.createElement(
-                  'span',
-                  { key: index },
-                  message,
-                  messages.length - 1 > index ? ' ,' : '',
-              ),
-          )
-        : undefined;
-};
-
-const ConnectedComponent = Symbol('connected');
+import {
+    size,
+    map,
+    first,
+    pick,
+    omit,
+    isObject,
+    isFunction,
+    isArray,
+    get,
+} from 'lodash';
+const { FormItem: AntdFormItem } = AntdForm;
+const EmptyComponent = () => null;
 
 export const FormItem = topProps => {
+    const { type, config, props, actions, subCollection, uuid } = topProps;
     const topFormItemProps = useFormItem();
-    topProps = { ...topFormItemProps, ...topProps };
+    /** 数据合并操作， 优先级 ： props > config > topFormItemProps */
+    const { pickFormItemProps, componentProps, visible } = useMemo(() => {
+        const mergeProps = Object.assign({}, topFormItemProps, config, props);
+        // TODO 暂时只有 visible(显示隐藏)
+        const { visible = true, ...itemProps } = mergeProps;
+        const formItemFields = FormItemFieldJson.body.map(v => v.field);
 
-    const {
-        name,
-        initialValue,
-        value,
-        visible,
-        display,
-        required,
-        editable,
-        triggerType,
-        unmountRemoveValue,
-        valueName,
-        eventName,
-        getValueFromEvent,
-        rules,
-        children,
-        component,
-        props,
-        ...itemProps
-    } = topProps || {};
-
-    const pickItem = pick(props);
-    const omitItem = omit(props);
-
-    const renderComponent = ({ props, state, mutators, form }) => {
-        if (!component) {
-            if (children) return <Fragment>{children}</Fragment>;
-            log.error(`Can't fount the component. Its key is ${name}.`);
-            return null;
-        }
-        if (!component['__ALREADY_CONNECTED__']) {
-            component[ConnectedComponent] =
-                component[ConnectedComponent] ||
-                connect({
-                    eventName,
-                    valueName,
-                    getValueFromEvent,
-                })(component);
-        }
-        return React.createElement(
-            component['__ALREADY_CONNECTED__']
-                ? component
-                : component[ConnectedComponent],
-            {
-                ...state,
-                props: {
-                    ['x-component-props']: props,
-                },
-                form,
-                mutators,
-            },
-            children,
-        );
-    };
-
-    const renderField = fieldProps => {
-        const { form, state, mutators } = fieldProps;
-        const { props, errors, warnings, editable, required } = state;
-        const { labelCol, wrapperCol, help } = props;
-        const formItemProps = pickFormItemProps(props);
-        const { inline, ...componentProps } = pickNotFormItemProps(props);
-
-        const { size } = topFormItemProps;
-        const itemProps = {
-            ...formItemProps,
-            required: editable === false ? undefined : required,
-            labelCol: formItemProps.label ? normalizeCol(labelCol) : {},
-            wrapperCol: formItemProps.label ? normalizeCol(wrapperCol) : {},
-            validateStatus: computeStatus(state),
-            help: computeMessage(errors, warnings) || help,
-        };
-
-        return (
-            <MegaLayoutItem itemProps={{ ...itemProps, size }} {...props}>
-                {megaComponentProps => {
-                    if (megaComponentProps) {
-                        return renderComponent({
-                            props: megaComponentProps,
-                            state,
-                            mutators,
-                            form,
-                        });
-                    }
-
-                    return (
-                        <AntdFormItem {...itemProps}>
-                            {renderComponent({
-                                props: componentProps,
-                                state,
-                                mutators,
-                                form,
-                            })}
-                        </AntdFormItem>
-                    );
-                }}
-            </MegaLayoutItem>
-        );
-    };
+        const pickFormItemProps = pick(itemProps, formItemFields);
+        const componentProps = omit(itemProps, formItemFields);
+        return { pickFormItemProps, componentProps, visible };
+    }, [config, props, topFormItemProps]);
+    if (!visible) return null;
+    const Component = getComponent[type] || EmptyComponent;
 
     return (
-        <InternalField
-            name={name}
-            initialValue={initialValue}
-            // unmountRemoveValue={unmountRemoveValue}
-            value={value}
-            visible={visible}
-            display={display}
-            required={required}
-            rules={rules}
-            editable={editable}
-            triggerType={triggerType}
-            props={{ ...topFormItemProps, ...itemProps, ...props }}
-        >
-            {renderField}
-        </InternalField>
+        <Component
+            key={uuid}
+            pickFormItemProps={pickFormItemProps}
+            componentProps={componentProps}
+        />
     );
 };
 
 const MixLayoutItem = props => {
-    const {
-        type,
-        config,
-        props: itemProps,
-        actions,
-        subCollection,
-    } = props.data;
-    const { label } = config;
-    if (size(subCollection) === 0) return null;
-    if (size(subCollection) === 1)
-        return <FormItem>{renderComponent(first(subCollection))}</FormItem>;
+    const { data } = props;
+    console.log('MixLayoutItem:', data);
+    if (isObject(data)) return <FormItem {...data} />;
+    if (isArray(data) && size(data) === 1) return <FormItem {...first(data)} />;
     return (
-        <FormItem name={label}>
-            {map(subCollection, sub => renderComponent(sub, notStyle))}
-        </FormItem>
+        <AntdFormItem label={get(data, 'config.label', '')}>
+            {map(data, sub => (
+                <FormItem {...sub} />
+            ))}
+        </AntdFormItem>
     );
 };
 

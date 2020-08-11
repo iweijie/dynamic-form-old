@@ -16,7 +16,6 @@ import {
 import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 import FormItemFieldJson from './FormItemField.json';
 const { Option } = Select;
-console.log(FormItemFieldJson);
 const formItemLayout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 14 },

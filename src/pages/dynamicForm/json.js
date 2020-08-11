@@ -14,14 +14,16 @@ export default [
             //     params: {},
             // },
         ],
-        itemChildren: [
+        subCollection: [
             {
                 uuid: 2,
                 type: 'Input',
-                config: {},
+                config: {
+                    label: '就是一个字',
+                },
                 props: {},
                 actions: [],
-                itemChildren: [],
+                subCollection: [],
             },
         ],
     },

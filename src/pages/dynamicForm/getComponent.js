@@ -1,10 +1,10 @@
 import react, { forwardRef } from 'react';
+
 import {
     AutoComplete,
     Checkbox,
     Cascader,
     DatePicker,
-    Form,
     InputNumber,
     Input,
     Mentions,
@@ -17,14 +17,23 @@ import {
     Transfer,
     TimePicker,
     Upload,
+    Button as AntdButton,
 } from 'antd';
+import { Form as AntdForm } from 'antd';
+import Form from './components/Form/Form';
 
-const components = {};
+export const IS_FORM_COMPONENT = Symbol('is_form_component');
+const EmptyComponent = () => null;
+
+const Button = props => {
+    const { text, ...other } = props;
+    return <AntdButton {...other}>{text}</AntdButton>;
+};
+
+export const components = { Form, Button };
 
 const ATest = forwardRef((props, ref) => {
-    console.log('----', props);
     const { id, value = '', onChange } = props;
-
     return (
         <input
             ref={ref}
@@ -59,14 +68,20 @@ const FormComponent = {
 Object.keys(FormComponent).map(key => {
     const Com = FormComponent[key];
     components[key] = props => {
-        console.log(123);
         const { pickFormItemProps, componentProps } = props;
         return (
-            <Form.Item {...pickFormItemProps}>
+            <AntdForm.Item {...pickFormItemProps}>
                 <Com {...componentProps} />
-            </Form.Item>
+            </AntdForm.Item>
         );
     };
+    components[key][IS_FORM_COMPONENT] = true;
 });
 
-export default components;
+console.log(components);
+
+export default (type, data) => {
+    const Component = components[type] || EmptyComponent;
+    const { uuid } = data;
+    return <Component key={uuid} {...data} />;
+};

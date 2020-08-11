@@ -7,37 +7,59 @@ import React, {
 } from 'react';
 import { Form as AForm } from 'antd';
 import MixLayoutItem from './FormItem';
+import FormFieldsJSON from './FormFields.json';
 import map from 'lodash/map';
-import { normalizeCol, log } from './shared';
+import { rewriteFormItemLayoutProps } from './util';
 import { FormItemProvider } from './context';
+import { pick, omit } from 'lodash';
 const { useForm } = AForm;
 
 const FormContext = createContext({});
 
-export const Form = props => {
-    const {
-        actions,
-        props: configProps,
-        config,
-        type,
-        subCollection,
-        prefixCls,
-        labelAlign,
-        labelCol,
-        wrapperCol,
-        inline,
-        size,
-        ...rest
-    } = props;
-    const [form] = useForm();
+const defaultFormItemLayout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 14 },
+};
+const FormProviderFields = [
+    'prefixCls',
+    'labelAlign',
+    'labelCol',
+    'wrapperCol',
+    'inline',
+    'size',
+];
 
-    const onSubmit = e => {
-        if (e && e.preventDefault) e.preventDefault();
-        form.submit().catch(e => log.warn(e));
-    };
-    const onReset = () => {
-        form.reset({ validate: false, forceClear: false });
-    };
+const Form = topProps => {
+    const [form] = useForm();
+    const { type, actions, props, config, subCollection } = topProps;
+    const getValue = (window.getValue = () => {
+        console.log(form);
+        return form.getFieldsValue();
+    });
+    const { pickProviderItem, pickItem } = useMemo(() => {
+        const FormFields = FormFieldsJSON.body.map(v => v.field);
+        const mergeProps = Object.assign({}, config, props);
+        const pickItem = pick(mergeProps, FormFields);
+        const pickProviderItem = rewriteFormItemLayoutProps(
+            pick(mergeProps, FormProviderFields),
+        );
+
+        pickItem.layout = pickItem.inline
+            ? 'inline'
+            : pickItem.layout || 'horizontal';
+
+        return {
+            pickProviderItem: {
+                ...pickProviderItem,
+                labelCol: pickItem.labelCol,
+                wrapperCol: pickItem.wrapperCol,
+            },
+            pickItem,
+        };
+    }, [actions, props]);
+
+    const onSubmit = e => {};
+    const onReset = () => {};
 
     const renderChildren = useCallback(subCollection => {
         return map(subCollection, sub => {
@@ -45,29 +67,20 @@ export const Form = props => {
         });
     }, []);
 
+    console.log('pickItem', pickItem);
+
     return (
-        <FormItemProvider
-            {...{
-                prefixCls,
-                labelAlign,
-                labelCol,
-                wrapperCol,
-                inline,
-                size,
-                form,
-            }}
-        >
+        <FormItemProvider {...pickProviderItem} form={form}>
             <AForm
-                {...rest}
+                {...pickItem}
                 form={form}
                 onSubmit={onSubmit}
                 onReset={onReset}
-                labelCol={normalizeCol(props.labelCol)}
-                wrapperCol={normalizeCol(props.wrapperCol)}
-                layout={inline ? 'inline' : props.layout}
             >
                 {renderChildren(subCollection)}
             </AForm>
         </FormItemProvider>
     );
 };
+
+export default Form;

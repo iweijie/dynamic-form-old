@@ -10,7 +10,8 @@ import RightSide from '@/components/RightSide';
 import Container from '@/components/Container';
 import { Form } from './components/Form';
 import styles from './index.less';
-import Demo from './test';
+import json from './json';
+import getComponent from './getComponent';
 
 const getContainerForClone = (...res) => {
     console.log(res);
@@ -80,7 +81,10 @@ const DynamicFormConfig = ({ components, dispatch, items }) => {
                 <LeftSide components={components} />
                 {/* <Container>{FormContainer.render({ items })}</Container> */}
                 <div style={{ flex: 1 }}>
-                    <Form subCollection={subCollection}></Form>
+                    {map(json, sub => {
+                        const { type, uuid } = sub;
+                        return getComponent(type, sub);
+                    })}
                 </div>
                 <RightSide />
             </div>

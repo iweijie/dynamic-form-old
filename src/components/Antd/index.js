@@ -24,8 +24,6 @@ import Form from './components/Form/index';
 import FormItem from './components/FormItem/index';
 import { IS_FORM_COMPONENT } from '@/constant/Form';
 
-const EmptyComponent = () => null;
-
 const Button = props => {
     const { text, ...other } = props;
     return <AntdButton {...other}>{text}</AntdButton>;

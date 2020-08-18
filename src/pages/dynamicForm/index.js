@@ -2,16 +2,15 @@ import React, { useCallback } from 'react';
 import { IndexModelState, ConnectRC, Loading, connect } from 'umi';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { map, find, get } from 'lodash';
-import { ContainerType } from '@/DragComponents';
+// import { ContainerType } from '@/DragComponents';
 import { clone } from '@/utils';
-import FormContainer from '@/DragComponents/containers/Form';
+// import FormContainer from '@/DragComponents/containers/Form';
 import LeftSide from '@/components/LeftSide';
 import RightSide from '@/components/RightSide';
-import Container from '@/components/Container';
-import { Form } from './components/Form';
+// import Container from '@/components/Container';
 import styles from './index.less';
 import json from './json';
-import getComponent from './getComponent';
+import renderComponent from './components/renderComponent';
 
 const getContainerForClone = (...res) => {
     console.log(res);
@@ -72,7 +71,7 @@ const DynamicFormConfig = ({ components, dispatch, items }) => {
 
     return (
         <DragDropContext
-            getContainerForClone={getContainerForClone}
+            // getContainerForClone={getContainerForClone}
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
             // onDragUpdate={handleDragUpdate}
@@ -81,10 +80,7 @@ const DynamicFormConfig = ({ components, dispatch, items }) => {
                 <LeftSide components={components} />
                 {/* <Container>{FormContainer.render({ items })}</Container> */}
                 <div style={{ flex: 1 }}>
-                    {map(json, sub => {
-                        const { type, uuid } = sub;
-                        return getComponent(type, sub);
-                    })}
+                    {map(json, sub => renderComponent(sub))}
                 </div>
                 <RightSide />
             </div>

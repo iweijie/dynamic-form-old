@@ -24,14 +24,9 @@ import Form from './components/Form/index';
 import FormItem from './components/FormItem/index';
 import { IS_FORM_COMPONENT } from '@/constant/Form';
 
-const EmptyComponent = () => null;
+export const EmptyComponent = () => null;
 
-// const Button = props => {
-//     const { text, ...other } = props;
-//     return <AntdButton {...other}>{text}</AntdButton>;
-// };
-
-export const components = { Form };
+export const components = { Form, FormItem };
 
 const ATest = forwardRef((props, ref) => {
     const { id, value = '', onChange } = props;
@@ -79,8 +74,8 @@ Object.keys(FormComponent).map(key => {
     components[key][IS_FORM_COMPONENT] = true;
 });
 
-export default (type, data) => {
-    const Component = components[type] || EmptyComponent;
-    const { uuid, props, actions } = data;
-    return <Component key={uuid} {...data} />;
-};
+// export default () => {
+//     const Component = components[type] || EmptyComponent;
+//     const { uuid, props, actions } = data;
+//     return <Component key={uuid} {...data} />;
+// };

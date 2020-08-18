@@ -8,9 +8,10 @@ import React, {
 } from 'react';
 import { Form as AForm } from 'antd';
 import FormFieldsJSON from './FormFields.json';
-import renderComponent from '../../../renderComponent';
-import { rewriteFormItemLayoutProps } from '../utils';
-import getContext from '@/context/index';
+import renderComponent from '../renderComponent';
+import { rewriteFormItemLayoutProps } from '../../utils';
+import { IS_CONTAINER_COMPONENT } from '../../constant/index';
+import { getContext } from '../../context/index';
 import { pick, map } from 'lodash';
 const { useForm } = AForm;
 
@@ -26,11 +27,11 @@ const FormProviderFields = [
 const Form = topProps => {
     const [form] = useForm();
     const { type, uuid, actions, props, config, subCollection } = topProps;
-    const { FormItemProvider } = getContext(uuid);
-    const getValue = (window.getValue = () => {
-        console.log(form);
-        return form.getFieldsValue();
-    });
+    const { Provider: FormItemProvider } = getContext({ uuid, type: 'form' });
+    // const getValue = (window.getValue = () => {
+    //     console.log(form);
+    //     return form.getFieldsValue();
+    // });
     const { pickProviderItem, pickItem } = useMemo(() => {
         const FormFields = FormFieldsJSON.body.map(v => v.field);
         const mergeProps = Object.assign({}, config, props);
@@ -56,12 +57,6 @@ const Form = topProps => {
     const onSubmit = e => {};
     const onReset = () => {};
 
-    // const renderChildren = useCallback(subCollection => {
-    //     return map(subCollection, sub => {
-    //         return <MixLayoutItem key={sub.uuid} {...sub} />;
-    //     });
-    // }, []);
-
     return (
         <FormItemProvider {...pickProviderItem} form={form}>
             <AForm
@@ -77,5 +72,8 @@ const Form = topProps => {
         </FormItemProvider>
     );
 };
+
+Form[IS_CONTAINER_COMPONENT] = true;
+Form.contextType = 'form';
 
 export default Form;

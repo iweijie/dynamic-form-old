@@ -1,3 +1,11 @@
+/**
+ * 组件数据结构：
+ *
+ * {
+ *      actions:[ '' ]
+ * }
+ */
+
 export default [
     {
         uuid: 1,

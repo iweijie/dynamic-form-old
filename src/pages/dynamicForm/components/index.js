@@ -1,5 +1,7 @@
 import react, { forwardRef } from 'react';
-import { IS_FORM_COMPONENT } from '@/constant/index';
+import { IS_FORM_COMPONENT } from '../constant/index';
+import getFormItemProps from '../components/FormItem/getFormItemProps';
+
 import {
     AutoComplete,
     Checkbox,
@@ -20,10 +22,10 @@ import {
     Button as AntdButton,
 } from 'antd';
 import { Form as AntdForm } from 'antd';
-import Form from '@/components/Antd/Form/index';
-import FormItem from '@/components/Antd/FormItem/index';
+import Form from './Form/index';
+import FormItem from './FormItem/index';
 
-const components = { Form };
+const components = { Form, FormItem };
 
 const ATest = forwardRef((props, ref) => {
     const { id, value = '', onChange } = props;
@@ -61,7 +63,10 @@ const FormComponent = {
 Object.keys(FormComponent).map(key => {
     const Com = FormComponent[key];
     components[key] = props => {
-        const { pickFormItemProps, componentProps } = props;
+        const { pickFormItemProps, componentProps, visible } = getFormItemProps(
+            props,
+        );
+        if (!visible) return null;
         return (
             <AntdForm.Item {...pickFormItemProps}>
                 <Com {...componentProps} />

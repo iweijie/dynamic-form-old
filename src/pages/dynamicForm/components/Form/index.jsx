@@ -26,12 +26,8 @@ const FormProviderFields = [
 
 const Form = topProps => {
     const [form] = useForm();
-    const { type, uuid, actions, props, config, subCollection } = topProps;
+    const { type, uuid, actions, props, config, children } = topProps;
     const { Provider: FormItemProvider } = getContext({ uuid, type: 'form' });
-    // const getValue = (window.getValue = () => {
-    //     console.log(form);
-    //     return form.getFieldsValue();
-    // });
     const { pickProviderItem, pickItem } = useMemo(() => {
         const FormFields = FormFieldsJSON.body.map(v => v.field);
         const mergeProps = Object.assign({}, config, props);
@@ -65,9 +61,10 @@ const Form = topProps => {
                 onSubmit={onSubmit}
                 onReset={onReset}
             >
-                {map(subCollection, sub => {
+                {children}
+                {/* {map(subCollection, sub => {
                     return renderComponent(sub);
-                })}
+                })} */}
             </AForm>
         </FormItemProvider>
     );

@@ -28,6 +28,49 @@ export default [
         ],
         subCollection: [
             {
+                uuid: 112,
+                type: 'FormItem',
+                config: {
+                    labelCol: 4,
+                    wrapperCol: 12,
+                    name: 'iweijie',
+                    required: true,
+                    label: '就是一个字',
+                    initialValue: 'test',
+                },
+                props: {},
+                actions: {},
+                subCollection: [
+                    {
+                        uuid: 113,
+                        type: 'Input',
+                        config: {
+                            labelCol: 4,
+                            wrapperCol: 12,
+                            name: 'iweijie',
+                            required: true,
+                            initialValue: 'test',
+                        },
+                        props: {},
+                        actions: {},
+                        subCollection: [],
+                    },
+                    {
+                        uuid: 114,
+                        type: 'Input',
+                        config: {
+                            name: 'womenbuyiyang',
+                            initialValue: '生活',
+                            prefix: 'UserOutlined',
+                            prefixNodeOrStr: 'ReactNode',
+                        },
+                        props: {},
+                        actions: {},
+                        subCollection: [],
+                    },
+                ],
+            },
+            {
                 uuid: 2,
                 type: 'Input',
                 config: {
@@ -49,6 +92,8 @@ export default [
                     name: 'womenbuyiyang',
                     label: '就是一个字',
                     initialValue: '生活',
+                    prefix: 'UserOutlined',
+                    prefixNodeOrStr: 'ReactNode',
                 },
                 props: {},
                 actions: {},
@@ -56,16 +101,42 @@ export default [
             },
             {
                 uuid: 4,
-                type: 'Button',
-                config: {
-                    type: 'primary',
-                    htmlType: 'submit',
-                    text: '提交',
-                },
-                props: {},
-                actions: {},
-                subCollection: [],
+                type: 'OriginalLabel',
+                config: { type: 'p', text: 'weijie' },
             },
+            // {
+            //     uuid: 4,
+            //     type: 'Upload',
+            //     config: {
+            //         label: '图片上传',
+            //         name: 'logo',
+            //         action: '/upload.do',
+            //         listType: 'picture',
+            //     },
+            //     props: {},
+            //     actions: {},
+            //     subCollection: [
+            //         // {
+            //         //     uuid: 5,
+            //         //     type: 'Button',
+            //         //     config: {},
+            //         //     props: {},
+            //         //     actions: {},
+            //         //     subCollection: [
+            //         //         {
+            //         //             uuid: 5,
+            //         //             type: 'Text',
+            //         //             config: {
+            //         //                 text: 'Click to upload',
+            //         //             },
+            //         //             props: {},
+            //         //             actions: {},
+            //         //             subCollection: [],
+            //         //         },
+            //         //     ],
+            //         // },
+            //     ],
+            // },
         ],
     },
 ];

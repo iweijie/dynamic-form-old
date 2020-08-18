@@ -1,17 +1,47 @@
 import react, { forwardRef } from 'react';
 import { isFristCapitalized } from '@/utils';
 import EmptyComponent from './EmptyComponent';
-import { get, map } from 'lodash';
-import getParentContext from '../context/index';
+import { get, map, size } from 'lodash';
 import { IS_CONTAINER_COMPONENT } from '../constant/index';
-const renderComponent = props => {
+import { isArray } from 'lodash';
+
+const getEmptyObj = () => {};
+
+const getParentContext = paths => {
+    return useMemo(() => {
+        const empty = {};
+        if (isEmpty(paths) || !Array.isArray(paths)) return empty;
+        return paths
+            .reverse()
+            .map(path =>
+                get(getContext(path), 'useCustomContext', getEmptyObj)(),
+            )
+            .reduce((obj, context) => ({ ...obj, ...context }), empty);
+    }, [paths]);
+};
+const renderComponent = (configurations, injectProps) => {
     const { default: components } = require('./index');
-    const { type, paths, uuid, subCollection } = props;
-    const topProps = getParentContext(paths);
+    const {
+        type,
+        paths,
+        actions,
+        config,
+        props,
+        uuid,
+        subCollection,
+    } = configurations;
+    const topContextProps = getParentContext(paths);
+    const mergeProps = Object.assign(
+        {},
+        topContextProps,
+        config,
+        props,
+        injectProps,
+    );
     const Component = get(components, type, EmptyComponent);
-    if (Component[IS_CONTAINER_COMPONENT]) {
+    if (size(subCollection)) {
         return (
-            <Component key={uuid} {...props} {...topProps}>
+            <Component key={uuid} {...mergeProps}>
                 {map(subCollection, sub => renderComponent(sub))}
             </Component>
         );

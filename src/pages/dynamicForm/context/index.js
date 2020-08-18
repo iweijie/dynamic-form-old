@@ -1,5 +1,5 @@
-import React, { createContext, useContext } from 'react';
-import { isEmpty } from 'lodash';
+import React, { useMemo, createContext, useContext } from 'react';
+import { isEmpty, get, noop } from 'lodash';
 
 export const context = {};
 
@@ -59,11 +59,13 @@ export const getContext = ({ uuid, type }) => {
 
 const getParentContext = paths => {
     const empty = {};
-    if (isEmpty(paths) || !Array.isArray(paths)) return empty;
-    return paths
-        .reverse()
-        .map(path => getContext(path))
-        .reduce((obj, context) => ({ ...obj, ...context }), empty);
+    return useMemo(() => {
+        if (isEmpty(paths) || !Array.isArray(paths)) return empty;
+        return paths
+            .reverse()
+            .map(path => get(getContext(path), 'useCustomContext', noop)())
+            .reduce((obj, context) => ({ ...obj, ...context }), empty);
+    }, [paths]);
 };
 
 export default getParentContext;

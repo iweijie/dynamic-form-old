@@ -3,6 +3,8 @@ import { IS_FORM_COMPONENT } from '../constant/index';
 import getFormItemProps from '../components/FormItem/getFormItemProps';
 import OriginalLabel from './OriginalLabel';
 import Input from './Input';
+import Upload from './Upload';
+import Select from './Select';
 import {
     AutoComplete,
     Checkbox,
@@ -14,14 +16,12 @@ import {
     Radio,
     Switch,
     Slider,
-    Select,
     TreeSelect,
     Transfer,
     TimePicker,
-    Upload,
-    Button as AntdButton,
+    Button as AButton,
 } from 'antd';
-import { Form as AntdForm } from 'antd';
+import { Form as AForm } from 'antd';
 import Form from './Form/index';
 import FormItem from './FormItem/index';
 
@@ -41,21 +41,21 @@ const ATest = forwardRef((props, ref) => {
 });
 
 const FormComponent = {
-    AutoComplete,
-    Checkbox,
-    Cascader,
-    DatePicker,
-    InputNumber,
+    // AutoComplete,
+    // Checkbox,
+    // Cascader,
+    // DatePicker,
+    // InputNumber,
     Input,
-    Mentions,
-    Rate,
-    Radio,
-    Switch,
-    Slider,
+    // Mentions,
+    // Rate,
+    // Radio,
+    // Switch,
+    // Slider,
     Select,
-    TreeSelect,
-    Transfer,
-    TimePicker,
+    // TreeSelect,
+    // Transfer,
+    // TimePicker,
     Upload,
     ATest,
 };
@@ -63,15 +63,14 @@ const FormComponent = {
 Object.keys(FormComponent).map(key => {
     const Com = FormComponent[key];
     components[key] = props => {
-        const { subCollection, actions, props: configProps } = props;
         const { pickFormItemProps, componentProps, visible } = getFormItemProps(
             props,
         );
         if (!visible) return null;
         return (
-            <AntdForm.Item {...pickFormItemProps}>
+            <AForm.Item {...pickFormItemProps}>
                 <Com {...componentProps} />
-            </AntdForm.Item>
+            </AForm.Item>
         );
     };
     components[key][IS_FORM_COMPONENT] = true;

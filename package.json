@@ -5,7 +5,8 @@
     "build": "umi build",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
-    "test:coverage": "umi-test --coverage"
+    "test:coverage": "umi-test --coverage",
+    "react-docgen":"react-docgen "
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -36,5 +37,8 @@
     "umi": "^3.0.18",
     "uuid": "^7.0.3",
     "yorkie": "^2.0.0"
+  },
+  "devDependencies": {
+    "react-docgen": "^5.3.0"
   }
 }

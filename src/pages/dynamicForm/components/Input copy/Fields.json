@@ -1,0 +1,327 @@
+[
+    {
+        "title": "Input",
+        "header": [
+            {
+                "name": "参数",
+                "field": "field"
+            },
+            {
+                "name": "说明",
+                "field": "explain"
+            },
+            {
+                "name": "类型",
+                "field": "type"
+            },
+            {
+                "name": "默认值",
+                "field": "defaultValue"
+            },
+            {
+                "name": "版本",
+                "field": "version"
+            }
+        ],
+        "body": [
+            {
+                "field": "addonAfter",
+                "explain": "带标签的 input，设置后置标签",
+                "type": "string | ReactNode",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "addonBefore",
+                "explain": "带标签的 input，设置前置标签",
+                "type": "string | ReactNode",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "defaultValue",
+                "explain": "输入框默认内容",
+                "type": "string",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "disabled",
+                "explain": "是否禁用状态，默认为 false",
+                "type": "boolean",
+                "defaultValue": "false",
+                "version": ""
+            },
+            {
+                "field": "id",
+                "explain": "输入框的 id",
+                "type": "string",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "maxLength",
+                "explain": "最大长度",
+                "type": "number",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "prefix",
+                "explain": "带有前缀图标的 input",
+                "type": "string | ReactNode",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "size",
+                "explain": "控件大小。注：标准表单内的输入框大小限制为 large",
+                "type": "large | middle | small",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "suffix",
+                "explain": "带有后缀图标的 input",
+                "type": "string | ReactNode",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "type",
+                "explain": "声明 input 类型，同原生 input 标签的 type 属性，见：MDN(请直接使用 Input.TextArea 代替 type=\"textarea\")",
+                "type": "string",
+                "defaultValue": "text",
+                "version": ""
+            },
+            {
+                "field": "value",
+                "explain": "输入框内容",
+                "type": "string",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onChange",
+                "explain": "输入框内容变化时的回调",
+                "type": "function(e)",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onPressEnter",
+                "explain": "按下回车的回调",
+                "type": "function(e)",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "allowClear",
+                "explain": "可以点击清除图标删除内容",
+                "type": "boolean",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "bordered",
+                "explain": "是否有边框",
+                "type": "boolean",
+                "defaultValue": "true",
+                "version": "4.5.0"
+            }
+        ]
+    },
+    {
+        "title": "Input.TextArea",
+        "header": [
+            {
+                "name": "参数",
+                "field": "field"
+            },
+            {
+                "name": "说明",
+                "field": "explain"
+            },
+            {
+                "name": "类型",
+                "field": "type"
+            },
+            {
+                "name": "默认值",
+                "field": "defaultValue"
+            },
+            {
+                "name": "版本",
+                "field": "version"
+            }
+        ],
+        "body": [
+            {
+                "field": "autoSize",
+                "explain": "自适应内容高度，可设置为 true | false 或对象：{ minRows: 2, maxRows: 6 }",
+                "type": "boolean | object",
+                "defaultValue": "false",
+                "version": ""
+            },
+            {
+                "field": "defaultValue",
+                "explain": "输入框默认内容",
+                "type": "string",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "value",
+                "explain": "输入框内容",
+                "type": "string",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onPressEnter",
+                "explain": "按下回车的回调",
+                "type": "function(e)",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "allowClear",
+                "explain": "可以点击清除图标删除内容",
+                "type": "boolean",
+                "defaultValue": "false",
+                "version": ""
+            },
+            {
+                "field": "onResize",
+                "explain": "resize 回调",
+                "type": "function({ width, height })",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "bordered",
+                "explain": "是否有边框",
+                "type": "boolean",
+                "defaultValue": "true",
+                "version": "4.5.0"
+            }
+        ]
+    },
+    {
+        "title": "Input.Search",
+        "header": [
+            {
+                "name": "参数",
+                "field": "field"
+            },
+            {
+                "name": "说明",
+                "field": "explain"
+            },
+            {
+                "name": "类型",
+                "field": "type"
+            },
+            {
+                "name": "默认值",
+                "field": "defaultValue"
+            }
+        ],
+        "body": [
+            {
+                "field": "enterButton",
+                "explain": "是否有确认按钮，可设为按钮文字。该属性会与 addonAfter 冲突。",
+                "type": "boolean | ReactNode",
+                "defaultValue": "false"
+            },
+            {
+                "field": "onSearch",
+                "explain": "点击搜索或按下回车键时的回调",
+                "type": "function(value, event)",
+                "defaultValue": "-"
+            },
+            {
+                "field": "loading",
+                "explain": "搜索 loading",
+                "type": "boolean",
+                "defaultValue": "false"
+            }
+        ]
+    },
+    {
+        "title": "Input.Group",
+        "header": [
+            {
+                "name": "参数",
+                "field": "field"
+            },
+            {
+                "name": "说明",
+                "field": "explain"
+            },
+            {
+                "name": "类型",
+                "field": "type"
+            },
+            {
+                "name": "默认值",
+                "field": "defaultValue"
+            }
+        ],
+        "body": [
+            {
+                "field": "compact",
+                "explain": "是否用紧凑模式",
+                "type": "boolean",
+                "defaultValue": "false"
+            },
+            {
+                "field": "size",
+                "explain": "Input.Group 中所有的 Input 的大小，可选 large default small",
+                "type": "string",
+                "defaultValue": "default"
+            }
+        ]
+    },
+    {
+        "title": "Input.Password",
+        "header": [
+            {
+                "name": "参数",
+                "field": "field"
+            },
+            {
+                "name": "说明",
+                "field": "explain"
+            },
+            {
+                "name": "类型",
+                "field": "type"
+            },
+            {
+                "name": "默认值",
+                "field": "defaultValue"
+            },
+            {
+                "name": "版本",
+                "field": "version"
+            }
+        ],
+        "body": [
+            {
+                "field": "visibilityToggle",
+                "explain": "是否显示切换按钮",
+                "type": "boolean",
+                "defaultValue": "true",
+                "version": ""
+            },
+            {
+                "field": "iconRender",
+                "explain": "自定义切换按钮",
+                "type": "(visible) => ReactNode",
+                "defaultValue": "(visible) => (visible ? <EyeOutlined /> : <EyeInvisibleOutlined />)",
+                "version": "4.3.0"
+            }
+        ]
+    }
+]

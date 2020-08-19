@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './index.less';
 import PropTypes from 'prop-types';
-import * as AntdIcons from '@ant-design/icons';
+import * as AIcons from '@ant-design/icons';
 import EmptyComponent from '../EmptyComponent';
 import { isFristCapitalized } from '@/utils/index';
 
-const { createFromIconfontCN, ...Icons } = AntdIcons;
+const { createFromIconfontCN, ...Icons } = AIcons;
 
 const scriptUrl = [
     '//at.alicdn.com/t/font_1788044_0dwu4guekcwr.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)

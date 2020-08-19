@@ -1,0 +1,494 @@
+[
+    {
+        "title": "Select props",
+        "header": [
+            {
+                "name": "参数",
+                "field": "field"
+            },
+            {
+                "name": "说明",
+                "field": "explain"
+            },
+            {
+                "name": "类型",
+                "field": "type"
+            },
+            {
+                "name": "默认值",
+                "field": "defaultValue"
+            },
+            {
+                "name": "版本",
+                "field": "version"
+            }
+        ],
+        "body": [
+            {
+                "field": "allowClear",
+                "explain": "支持清除",
+                "type": "boolean",
+                "defaultValue": "false",
+                "version": ""
+            },
+            {
+                "field": "autoClearSearchValue",
+                "explain": "是否在选中项后清空搜索框，只在 mode 为 multiple 或 tags 时有效",
+                "type": "boolean",
+                "defaultValue": "true",
+                "version": ""
+            },
+            {
+                "field": "autoFocus",
+                "explain": "默认获取焦点",
+                "type": "boolean",
+                "defaultValue": "false",
+                "version": ""
+            },
+            {
+                "field": "defaultActiveFirstOption",
+                "explain": "是否默认高亮第一个选项",
+                "type": "boolean",
+                "defaultValue": "true",
+                "version": ""
+            },
+            {
+                "field": "defaultValue",
+                "explain": "指定默认选中的条目",
+                "type": "string | string[]number | number[]LabeledValue | LabeledValue[]",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "disabled",
+                "explain": "是否禁用",
+                "type": "boolean",
+                "defaultValue": "false",
+                "version": ""
+            },
+            {
+                "field": "dropdownClassName",
+                "explain": "下拉菜单的 className 属性",
+                "type": "string",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "dropdownMatchSelectWidth",
+                "explain": "下拉菜单和选择器同宽。默认将设置 min-width，当值小于选择框宽度时会被忽略。false 时会关闭虚拟滚动",
+                "type": "boolean | number",
+                "defaultValue": "true",
+                "version": ""
+            },
+            {
+                "field": "dropdownRender",
+                "explain": "自定义下拉框内容",
+                "type": "(originNode: ReactNode) => ReactNode",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "dropdownStyle",
+                "explain": "下拉菜单的 style 属性",
+                "type": "CSSProperties",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "filterOption",
+                "explain": "是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false",
+                "type": "boolean | function(inputValue, option)",
+                "defaultValue": "true",
+                "version": ""
+            },
+            {
+                "field": "getPopupContainer",
+                "explain": "菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。示例",
+                "type": "function(triggerNode)",
+                "defaultValue": "() => document.body",
+                "version": ""
+            },
+            {
+                "field": "labelInValue",
+                "explain": "是否把每个选项的 label 包装到 value 中，会把 Select 的 value 类型从 string 变为 { value: string, label: ReactNode } 的格式",
+                "type": "boolean",
+                "defaultValue": "false",
+                "version": ""
+            },
+            {
+                "field": "listHeight",
+                "explain": "设置弹窗滚动高度",
+                "type": "number",
+                "defaultValue": "256",
+                "version": ""
+            },
+            {
+                "field": "maxTagCount",
+                "explain": "最多显示多少个 tag",
+                "type": "number",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "maxTagTextLength",
+                "explain": "最大显示的 tag 文本长度",
+                "type": "number",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "maxTagPlaceholder",
+                "explain": "隐藏 tag 时显示的内容",
+                "type": "ReactNode | function(omittedValues)",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "tagRender",
+                "explain": "自定义 tag 内容 render",
+                "type": "(props) => ReactNode",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "mode",
+                "explain": "设置 Select 的模式为多选或标签",
+                "type": "multiple | tags",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "notFoundContent",
+                "explain": "当下拉列表为空时显示的内容",
+                "type": "ReactNode",
+                "defaultValue": "Not Found",
+                "version": ""
+            },
+            {
+                "field": "options",
+                "explain": "数据化配置选项内容，相比 jsx 定义会获得更好的渲染性能",
+                "type": "{ label, value }[]",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "optionFilterProp",
+                "explain": "搜索时过滤对应的 option 属性，如设置为 children 表示对内嵌内容进行搜索。示例",
+                "type": "string",
+                "defaultValue": "value",
+                "version": ""
+            },
+            {
+                "field": "optionLabelProp",
+                "explain": "回填到选择框的 Option 的属性值，默认是 Option 的子元素。比如在子元素需要高亮效果时，此值可以设为 value",
+                "type": "string",
+                "defaultValue": "children",
+                "version": ""
+            },
+            {
+                "field": "placeholder",
+                "explain": "选择框默认文字",
+                "type": "string",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "showArrow",
+                "explain": "是否显示下拉小箭头",
+                "type": "boolean",
+                "defaultValue": "单选为 true，多选为 false",
+                "version": ""
+            },
+            {
+                "field": "showSearch",
+                "explain": "使单选模式可搜索",
+                "type": "boolean",
+                "defaultValue": "false",
+                "version": ""
+            },
+            {
+                "field": "size",
+                "explain": "选择框大小",
+                "type": "large | middle | small",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "suffixIcon",
+                "explain": "自定义的选择框后缀图标",
+                "type": "ReactNode",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "removeIcon",
+                "explain": "自定义的多选框清除图标",
+                "type": "ReactNode",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "clearIcon",
+                "explain": "自定义的多选框清空图标",
+                "type": "ReactNode",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "menuItemSelectedIcon",
+                "explain": "自定义多选时当前选中的条目图标",
+                "type": "ReactNode",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "tokenSeparators",
+                "explain": "在 tags 和 multiple 模式下自动分词的分隔符",
+                "type": "string[]",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "value",
+                "explain": "指定当前选中的条目",
+                "type": "string | string[]number | number[]LabeledValue | LabeledValue[]",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "virtual",
+                "explain": "设置 false 时关闭虚拟滚动",
+                "type": "boolean",
+                "defaultValue": "true",
+                "version": "4.1.0"
+            },
+            {
+                "field": "onBlur",
+                "explain": "失去焦点时回调",
+                "type": "function",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onChange",
+                "explain": "选中 option，或 input 的 value 变化时，调用此函数",
+                "type": "function(value, option:Option | Array<Option>)",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onDeselect",
+                "explain": "取消选中时调用，参数为选中项的 value (或 key) 值，仅在 multiple 或 tags 模式下生效",
+                "type": "function(string | number | LabeledValue)",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onFocus",
+                "explain": "获得焦点时回调",
+                "type": "function",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onInputKeyDown",
+                "explain": "按键按下时回调",
+                "type": "function",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onMouseEnter",
+                "explain": "鼠标移入时回调",
+                "type": "function",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onMouseLeave",
+                "explain": "鼠标移出时回调",
+                "type": "function",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onPopupScroll",
+                "explain": "下拉列表滚动时的回调",
+                "type": "function",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onSearch",
+                "explain": "文本框值变化时回调",
+                "type": "function(value: string)",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onSelect",
+                "explain": "被选中时调用，参数为选中项的 value (或 key) 值",
+                "type": "function(string | number | LabeledValue, option: Option)",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "defaultOpen",
+                "explain": "是否默认展开下拉菜单",
+                "type": "boolean",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "open",
+                "explain": "是否展开下拉菜单",
+                "type": "boolean",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "onDropdownVisibleChange",
+                "explain": "展开下拉菜单的回调",
+                "type": "function(open)",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "loading",
+                "explain": "加载中状态",
+                "type": "boolean",
+                "defaultValue": "false",
+                "version": ""
+            },
+            {
+                "field": "bordered",
+                "explain": "是否有边框",
+                "type": "boolean",
+                "defaultValue": "true",
+                "version": ""
+            }
+        ]
+    },
+    {
+        "title": "Select Methods",
+        "header": [
+            {},
+            {
+                "name": "说明",
+                "field": "explain"
+            },
+            {
+                "name": "版本",
+                "field": "version"
+            }
+        ],
+        "body": [
+            {
+                "undefined": "blur()",
+                "explain": "取消焦点",
+                "version": ""
+            },
+            {
+                "undefined": "focus()",
+                "explain": "获取焦点",
+                "version": ""
+            }
+        ]
+    },
+    {
+        "title": "Option props",
+        "header": [
+            {
+                "name": "参数",
+                "field": "field"
+            },
+            {
+                "name": "说明",
+                "field": "explain"
+            },
+            {
+                "name": "类型",
+                "field": "type"
+            },
+            {
+                "name": "默认值",
+                "field": "defaultValue"
+            },
+            {
+                "name": "版本",
+                "field": "version"
+            }
+        ],
+        "body": [
+            {
+                "field": "disabled",
+                "explain": "是否禁用",
+                "type": "boolean",
+                "defaultValue": "false",
+                "version": ""
+            },
+            {
+                "field": "title",
+                "explain": "选中该 Option 后，Select 的 title",
+                "type": "string",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "value",
+                "explain": "默认根据此属性值进行筛选",
+                "type": "string | number",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "className",
+                "explain": "Option 器类名",
+                "type": "string",
+                "defaultValue": "-",
+                "version": ""
+            }
+        ]
+    },
+    {
+        "title": "OptGroup props",
+        "header": [
+            {
+                "name": "参数",
+                "field": "field"
+            },
+            {
+                "name": "说明",
+                "field": "explain"
+            },
+            {
+                "name": "类型",
+                "field": "type"
+            },
+            {
+                "name": "默认值",
+                "field": "defaultValue"
+            },
+            {
+                "name": "版本",
+                "field": "version"
+            }
+        ],
+        "body": [
+            {
+                "field": "key",
+                "explain": "Key",
+                "type": "string",
+                "defaultValue": "-",
+                "version": ""
+            },
+            {
+                "field": "label",
+                "explain": "组名",
+                "type": "string | React.Element",
+                "defaultValue": "-",
+                "version": ""
+            }
+        ]
+    }
+]

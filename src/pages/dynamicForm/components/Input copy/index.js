@@ -1,14 +1,9 @@
-import react, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Input as AInput } from 'antd';
-import Fields from './Fields.json';
-import { find } from 'lodash';
 import Icon from '../Icon';
 
 const { Group } = AInput;
-
-const InputFields = find(Fields, field => field.title === 'Input');
-const InputGroupFields = find(Fields, field => field.title === 'Input.Group');
 
 const getAddon = (type, str) => {
     if (!str || !type) return null;
@@ -59,4 +54,11 @@ Input.propTypes = {
     optionalBool: PropTypes.bool,
     optionalEnum: PropTypes.oneOf(['News', 'Photos']),
 };
+
+export const configurations = {
+    actions: {},
+    type: 'Input',
+    ref: Input,
+};
+
 export default Input;

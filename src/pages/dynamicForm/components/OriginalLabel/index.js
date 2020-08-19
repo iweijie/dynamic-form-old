@@ -16,6 +16,6 @@ const OriginalLabels = [
 ];
 
 export default props => {
-    const { type, text } = props.config;
+    const { type, text } = props;
     return React.createElement(type || 'div', {}, text);
 };

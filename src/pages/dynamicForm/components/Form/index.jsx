@@ -1,18 +1,11 @@
-import React, {
-    useRef,
-    useMemo,
-    createContext,
-    useContext,
-    useCallback,
-    Children,
-} from 'react';
-import { Form as AForm } from 'antd';
+import PropTypes from 'prop-types';
+import React, { useMemo, useCallback } from 'react';
+import { Form as AForm, Button } from 'antd';
 import FormFieldsJSON from './FormFields.json';
-import renderComponent from '../renderComponent';
 import { rewriteFormItemLayoutProps } from '../../utils';
 import { IS_CONTAINER_COMPONENT } from '../../constant/index';
-import { getContext } from '../../context/index';
-import { pick, map } from 'lodash';
+import { isEmpty, pick, get, noop } from 'lodash';
+import FormItemProvider from './FormItemProvider';
 const { useForm } = AForm;
 
 const FormProviderFields = [
@@ -24,16 +17,14 @@ const FormProviderFields = [
     'size',
 ];
 
-const Form = topProps => {
+const Form = props => {
     const [form] = useForm();
-    const { type, uuid, actions, props, config, children } = topProps;
-    const { Provider: FormItemProvider } = getContext({ uuid, type: 'form' });
-    const { pickProviderItem, pickItem } = useMemo(() => {
+    const { uuid, actions, children, ...other } = props;
+    const { pickProviderValue, pickItem } = useMemo(() => {
         const FormFields = FormFieldsJSON.body.map(v => v.field);
-        const mergeProps = Object.assign({}, config, props);
-        const pickItem = pick(mergeProps, FormFields);
-        const pickProviderItem = rewriteFormItemLayoutProps(
-            pick(mergeProps, FormProviderFields),
+        const pickItem = pick(other, FormFields);
+        const pickProviderValue = rewriteFormItemLayoutProps(
+            pick(other, FormProviderFields),
         );
 
         pickItem.layout = pickItem.inline
@@ -41,36 +32,60 @@ const Form = topProps => {
             : pickItem.layout || 'horizontal';
 
         return {
-            pickProviderItem: {
-                ...pickProviderItem,
+            pickProviderValue: {
+                ...pickProviderValue,
                 labelCol: pickItem.labelCol,
                 wrapperCol: pickItem.wrapperCol,
             },
             pickItem,
         };
-    }, [actions, props]);
+    }, [props]);
+    const handleGetValue = () => {
+        console.log(form.getFieldsValue());
+    };
+    const onFinish = useCallback(value => {
+        console.log(value);
+    }, []);
+    const onReset = useCallback(() => {
+        const { resetFields } = form;
+        resetFields();
+    }, [form]);
+    const onFinishFailed = useCallback(
+        ({ values, errorFields, outOfDate }) => {
+            console.log(values, errorFields, outOfDate);
+        },
+        [form],
+    );
 
-    const onSubmit = e => {};
-    const onReset = () => {};
+    const onValuesChange = useCallback((changedValues, allValues) => {}, []);
 
     return (
-        <FormItemProvider {...pickProviderItem} form={form}>
+        <FormItemProvider {...pickProviderValue} form={form} uuid={uuid}>
             <AForm
                 {...pickItem}
                 form={form}
-                onSubmit={onSubmit}
-                onReset={onReset}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                onValuesChange={onValuesChange}
             >
                 {children}
-                {/* {map(subCollection, sub => {
-                    return renderComponent(sub);
-                })} */}
             </AForm>
+            <Button onClick={handleGetValue}>点我获取值</Button>
         </FormItemProvider>
     );
 };
 
 Form[IS_CONTAINER_COMPONENT] = true;
 Form.contextType = 'form';
+
+Form.propTypes = {
+    optionalArray: PropTypes.array,
+    optionalBool: PropTypes.bool,
+    optionalEnum: PropTypes.oneOf(['News', 'Photos']),
+};
+
+Form.defaultProps = {};
+
+window.a = Form;
 
 export default Form;

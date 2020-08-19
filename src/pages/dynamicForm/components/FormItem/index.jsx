@@ -1,22 +1,22 @@
 import React, { useMemo } from 'react';
-import { Form as AntdForm } from 'antd';
+import { Form as AForm } from 'antd';
 import { map } from 'lodash';
+import { InputGroup } from '../Input';
 import getFormItemProps from './getFormItemProps';
-import renderComponent from '../renderComponent';
-const { FormItem: AntdFormItem } = AntdForm;
+const { Item: AFormItem } = AForm;
 
-export const LayoutFormItem = topProps => {
-    const { type, config, actions, subCollection, uuid } = topProps;
-
-    const { pickFormItemProps } = getFormItemProps(topProps);
+const LayoutFormItem = props => {
+    const { children, compact, ...other } = props;
+    const { pickFormItemProps } = getFormItemProps(other);
 
     return (
-        <AntdFormItem {...pickFormItemProps}>
-            {map(subCollection, sub =>
-                // 可以传入改写
-                renderComponent(sub, { noStyle }),
-            )}
-        </AntdFormItem>
+        <AFormItem {...pickFormItemProps}>
+            <InputGroup compact={compact}>
+                {React.Children.map(children, child => {
+                    return React.cloneElement(child, { noStyle: true });
+                })}
+            </InputGroup>
+        </AFormItem>
     );
 };
 

@@ -17,9 +17,9 @@ import {
     Transfer,
     TimePicker,
     Upload,
-    Button as AntdButton,
+    Button as AButton,
 } from 'antd';
-import { Form as AntdForm } from 'antd';
+import { Form as AForm } from 'antd';
 import Form from './components/Form/index';
 import FormItem from './components/FormItem/index';
 import { IS_FORM_COMPONENT } from '@/constant/Form';
@@ -66,9 +66,9 @@ Object.keys(FormComponent).map(key => {
     components[key] = props => {
         const { pickFormItemProps, componentProps } = props;
         return (
-            <AntdForm.Item {...pickFormItemProps}>
+            <AForm.Item {...pickFormItemProps}>
                 <Com {...componentProps} />
-            </AntdForm.Item>
+            </AForm.Item>
         );
     };
     components[key][IS_FORM_COMPONENT] = true;

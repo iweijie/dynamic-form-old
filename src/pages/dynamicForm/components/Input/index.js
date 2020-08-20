@@ -54,9 +54,23 @@ const Input = forwardRef((props, ref) => {
     );
 });
 
-Input.propTypes = {
-    optionalArray: PropTypes.array,
-    optionalBool: PropTypes.bool,
-    optionalEnum: PropTypes.oneOf(['News', 'Photos']),
-};
+const addonOptions = [
+    { value: 'ReactNode', label: 'ReactNode' },
+    { value: 'string', label: 'string' },
+];
+
+export const configurable = [
+    {
+        name: '字段',
+        field: 'addonAfterNodeOrStr',
+        type: 'select',
+        options: addonOptions,
+    },
+    {
+        name: '字段',
+        field: 'addonAfter',
+        type: 'string',
+    },
+];
+
 export default Input;

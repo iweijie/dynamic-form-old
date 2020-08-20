@@ -9,6 +9,7 @@
 export default [
     {
         uuid: 1,
+        _parentUUID: 0,
         type: 'Form',
         config: {
             labelCol: 6,
@@ -30,6 +31,8 @@ export default [
                 uuid: 112,
                 type: 'Select',
                 paths: [1],
+                _parentUUID: 0,
+                styles: {},
                 config: {
                     name: 'select',
                     required: true,
@@ -49,7 +52,6 @@ export default [
                 uuid: 2,
                 type: 'Input',
                 config: {
-                    trigger: 'onBlur',
                     labelCol: 4,
                     wrapperCol: 12,
                     name: 'iweijie1',
@@ -60,58 +62,6 @@ export default [
                 props: {},
                 actions: {},
                 subCollection: [],
-            },
-            // {
-            //     uuid: 3,
-            //     type: 'Input',
-            //     config: {
-            //         name: 'womenbuyiyang',
-            //         label: '就是一个字',
-            //         initialValue: '生活',
-            //         prefix: 'UserOutlined',
-            //         prefixNodeOrStr: 'ReactNode',
-            //     },
-            //     props: {},
-            //     actions: {},
-            //     subCollection: [],
-            // },
-            // {
-            //     uuid: 4,
-            //     type: 'OriginalLabel',
-            //     config: { type: 'p', text: 'weijie' },
-            // },
-            {
-                uuid: 12,
-                type: 'Upload',
-                config: {
-                    label: '图片上传',
-                    name: 'logo',
-                    action: '/upload.do',
-                    listType: 'picture',
-                },
-                props: {},
-                actions: {},
-                subCollection: [
-                    //         // {
-                    //         //     uuid: 5,
-                    //         //     type: 'Button',
-                    //         //     config: {},
-                    //         //     props: {},
-                    //         //     actions: {},
-                    //         //     subCollection: [
-                    //         //         {
-                    //         //             uuid: 5,
-                    //         //             type: 'Text',
-                    //         //             config: {
-                    //         //                 text: 'Click to upload',
-                    //         //             },
-                    //         //             props: {},
-                    //         //             actions: {},
-                    //         //             subCollection: [],
-                    //         //         },
-                    //         //     ],
-                    //         // },
-                ],
             },
         ],
     },

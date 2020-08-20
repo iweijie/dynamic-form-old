@@ -3,6 +3,8 @@ import { isEmpty, get, noop } from 'lodash';
 
 const context = {};
 
+export const GlobalContext = createContext(null);
+
 export const getContext = uuid => {
     if (!context[uuid]) {
         context[uuid] = createContext(null);

@@ -7,30 +7,17 @@ import { clone } from '@/utils';
 // import FormContainer from '@/DragComponents/containers/Form';
 import LeftSide from '@/components/LeftSide';
 import RightSide from '@/components/RightSide';
+import ActionBar from '@/components/ActionBar';
 // import Container from '@/components/Container';
 import styles from './index.less';
 import json from './json';
-import renderComponent from './components/renderComponent';
 
+import renderComponent from './components/renderComponent';
+import { GlobalContext } from './context';
 const getContainerForClone = (...res) => {
     console.log(res);
     return <div>1111</div>;
 };
-
-const subCollection = [
-    {
-        uuid: 2,
-        type: 'ATest',
-        config: {
-            name: 'iweijie',
-            label: '就是一个字',
-            initialValue: 'weijie',
-        },
-        props: {},
-        actions: [],
-        subCollection: [],
-    },
-];
 
 const DynamicFormConfig = ({ components, dispatch, items }) => {
     const handleDragEnd = useCallback(result => {
@@ -79,8 +66,12 @@ const DynamicFormConfig = ({ components, dispatch, items }) => {
             <div className={styles['dynamic-form']}>
                 <LeftSide components={components} />
                 {/* <Container>{FormContainer.render({ items })}</Container> */}
+
                 <div style={{ flex: 1 }}>
-                    {map(json, sub => renderComponent(sub))}
+                    <ActionBar />
+                    <GlobalContext.Provider>
+                        {map(json, sub => renderComponent(sub))}
+                    </GlobalContext.Provider>
                 </div>
                 <RightSide />
             </div>

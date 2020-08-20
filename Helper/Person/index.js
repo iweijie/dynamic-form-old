@@ -30,7 +30,7 @@ Persion.propTypes = {
     /**
      * @describe 姓名
      * @category data
-     * @extend
+     * @extend sdfkl水电费快乐sdfkl
      */
     name: PropTypes.string.isRequired,
     /**

@@ -1,10 +1,10 @@
 {
-    "description": "人物组件\r\n@description 这是关于人物组件的描述内容\r\n@class Persion\r\n@extends {Component}",
+    "description": "人物组件\n@description 这是关于人物组件的描述内容\n@class Persion\n@extends {Component}",
     "displayName": "Persion",
     "methods": [
         {
             "name": "handleSleep",
-            "docblock": "处理睡觉的回调\r\n@param {string} name 姓名",
+            "docblock": "处理睡觉的回调\n@param {string} name 姓名",
             "modifiers": [],
             "params": [
                 {
@@ -26,7 +26,7 @@
                 "name": "string"
             },
             "required": false,
-            "description": "@describe 姓名\r\n@category data\r\n@limit",
+            "description": "@describe 姓名\n@category data\n@extend sdfkl水电费快乐sdfkl",
             "defaultValue": {
                 "value": "'张三'",
                 "computed": false
@@ -37,7 +37,7 @@
                 "name": "array"
             },
             "required": false,
-            "description": "爱好\r\n@test 1",
+            "description": "爱好\n@test 1",
             "defaultValue": {
                 "value": "['睡觉', '打王者']",
                 "computed": false

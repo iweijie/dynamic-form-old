@@ -14,7 +14,6 @@ import {
     Col,
 } from 'antd';
 import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
-import FormItemFieldJson from './FormItemField.json';
 const { Option } = Select;
 const formItemLayout = {
     labelCol: { span: 6 },
@@ -57,6 +56,7 @@ export default () => {
                 ['input-number']: 3,
                 ['checkbox-group']: ['A', 'B'],
                 rate: 3.5,
+                // select: 'china',
             }}
         >
             <Form.Item label="Plain Text">
@@ -69,6 +69,7 @@ export default () => {
                 rules={[
                     { required: true, message: 'Please select your country!' },
                 ]}
+                initialValue="china"
             >
                 <Select placeholder="Please select a country">
                     <Option value="china">China</Option>
@@ -101,7 +102,7 @@ export default () => {
                 <Form.Item name="input-number" noStyle>
                     <InputNumber min={1} max={10} />
                 </Form.Item>
-                <span className="ant-form-text"> machines</span>
+                <span className="ant-form-text"> machines11111111111</span>
             </Form.Item>
 
             <Form.Item name="switch" label="Switch" valuePropName="checked">

@@ -67,8 +67,9 @@ Object.keys(FormComponent).map(key => {
             props,
         );
         if (!visible) return null;
+        console.log('pickFormItemProps', pickFormItemProps);
         return (
-            <AForm.Item {...pickFormItemProps}>
+            <AForm.Item {...pickFormItemProps} initialValue="test">
                 <Com {...componentProps} />
             </AForm.Item>
         );

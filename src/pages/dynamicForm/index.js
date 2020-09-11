@@ -9,6 +9,7 @@ import LeftSide from '@/components/LeftSide';
 import RightSide from '@/components/RightSide';
 import ActionBar from '@/components/ActionBar';
 // import Container from '@/components/Container';
+import Test from './test';
 import styles from './index.less';
 import json from './json';
 
@@ -71,6 +72,7 @@ const DynamicFormConfig = ({ components, dispatch, items }) => {
                     <ActionBar />
                     <GlobalContext.Provider>
                         {map(json, sub => renderComponent(sub))}
+                        <Test />
                     </GlobalContext.Provider>
                 </div>
                 <RightSide />

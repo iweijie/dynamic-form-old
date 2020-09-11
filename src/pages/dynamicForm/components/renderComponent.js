@@ -37,7 +37,6 @@ const createControl = () => {
         /** 下拉，单选，多选 列表 */
         options: [],
         optionParams: {},
-
         /** 子元素禁用 */
         disableOptions: [],
         /** 子元素隐藏、显示 */
@@ -57,8 +56,8 @@ const renderComponent = (configurable, injectProps) => {
     } = configurable;
 
     // const [control, changeControl] = useState(createControl);
-
-    const contextValues = getParentContextValues(paths);
+    // TODO 获取父级传递的数据有疑问
+    const contextValues = {} || getParentContextValues(paths);
     const mergeProps = merge(
         { uuid, actions },
         contextValues,

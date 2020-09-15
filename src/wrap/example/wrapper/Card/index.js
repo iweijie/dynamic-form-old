@@ -1,5 +1,4 @@
-import { hooksWrap } from '@/wrap/hooks';
-import { wrap } from '@/wrap/index';
+import wrap from '@/wrap/hooks';
 import * as RawCard from './Card';
 
 export const wrappers = RawCard.defaultWrappers || {};

@@ -26,7 +26,7 @@ function normalizeListenerResult(result) {
     return Array.isArray(result) ? result : [result];
 }
 
-export const hooksWrap = DeclarativeComponent => {
+export const wrap = DeclarativeComponent => {
     const {
         // 组件名称
         displayName,
@@ -37,7 +37,7 @@ export const hooksWrap = DeclarativeComponent => {
         // 默认监听事件
         defaultListeners = {},
         // 拦截器
-        defaultIntercepters = {},
+        defaultInterceptors = {},
         // 包装子组件
         defaultWrappers = {},
         // 初始化数据,用于用户自定义常量值数据挂载
@@ -47,7 +47,8 @@ export const hooksWrap = DeclarativeComponent => {
     } = DeclarativeComponent;
 
     const ReactFnComponent = props => {
-        const instance = useMemo(initialize);
+        console.log('ReactFnComponent', props);
+        const [instance, setInstance] = useSetState(initialize);
         // 默认 state
         const [state, setState] = useSetState(() => {
             const stateValueNames = Object.keys(defaultStateTypes);
@@ -57,27 +58,50 @@ export const hooksWrap = DeclarativeComponent => {
             };
         });
 
+        /**
+         * 合并props与state；props属性具有优先级，方便外界控制
+         * TODO -- 所有外界传入的数据需要在 defaultStateTypes 上声明
+         */
+        const getCurrentData = usePersistFn(() => {
+            const data = {
+                ...state,
+            };
+            if (!defaultStateTypes || typeof defaultStateTypes !== 'object')
+                return data;
+            for (let key in defaultStateTypes) {
+                data[key] = props[key] === undefined ? state[key] : props[key];
+            }
+            return data;
+        });
+
         // 挑选出来的数据
         const pickListenerArg = usePersistFn(() => {
-            return { state, instance };
+            return { data: getCurrentData(), instance };
         });
 
         // 挑选 渲染数据
-        const intercepters = useMemo(
+        const interceptors = useMemo(
             () =>
-                mapValues(defaultIntercepters, (defaultIntercepter, name) =>
+                mapValues(defaultInterceptors, (defaultInterceptor, name) =>
                     inject(
                         props[name] === undefined
-                            ? defaultIntercepter
+                            ? defaultInterceptor
                             : props[name],
                         pickListenerArg,
                     ),
                 ),
-            [defaultIntercepters],
+            [defaultInterceptors],
         );
         // 挑选渲染数据
         const pickRenderArg = usePersistFn(() => {
-            return { state, instance, intercepters, listeners };
+            return {
+                data: getCurrentData(),
+                instance,
+                interceptors,
+                listeners,
+                // 挂载数据到当前组件上
+                handleMountDataInInstance: setInstance,
+            };
         });
 
         // 获取生命周期函数
@@ -95,12 +119,14 @@ export const hooksWrap = DeclarativeComponent => {
             });
             return lifeCycles;
         }, [ReactComponentFunctionNames]);
+
         // 挂载
         useMount(lifeCycles.componentDidMount);
         // 卸载
         useUnmount(lifeCycles.componentWillUnmount);
         // 更新
         useUpdateEffect(lifeCycles.componentDidUpdate);
+
         const handleListenerResult = useCallback(
             result => {
                 if (typeof result === 'object') {
@@ -115,6 +141,7 @@ export const hooksWrap = DeclarativeComponent => {
             return mapValues(defaultListeners, (defaultListener, name) => {
                 return (...runtimeArgs) => {
                     const listenerArg = pickListenerArg();
+
                     const normalizedResult = normalizeListener(props[name]);
 
                     if (normalizedResult === undefined)
@@ -141,8 +168,8 @@ export const hooksWrap = DeclarativeComponent => {
                         );
                         const nextArg = {
                             ...listenerArg,
-                            state: {
-                                ...listenerArg.state,
+                            data: {
+                                ...listenerArg.data,
                                 ...nextState,
                             },
                         };
@@ -173,8 +200,8 @@ export const hooksWrap = DeclarativeComponent => {
 
                     const nextArg = {
                         ...listenerArg,
-                        state: {
-                            ...listenerArg.state,
+                        data: {
+                            ...listenerArg.data,
                             ...nextState,
                         },
                     };
@@ -192,30 +219,17 @@ export const hooksWrap = DeclarativeComponent => {
             });
         });
 
+        // 获取可设置的容器
         const wrappers = useMemo(() => {
             return mapValues(defaultWrappers, (wrapper, name) =>
                 props[name] === undefined ? wrapper : props[name],
             );
         }, [defaultWrappers]);
 
-        // 可以由外界控制
-        const getCurrentData = usePersistFn(() => {
-            const data = {
-                ...state,
-            };
-            if (!defaultStateTypes || typeof defaultStateTypes !== 'object')
-                return data;
-            for (let key in defaultStateTypes) {
-                data[key] = props[key] === undefined ? state[key] : props[key];
-            }
-            return data;
-        });
-
         return render({
             data: getCurrentData(),
-            state,
             instance,
-            intercepters,
+            interceptors,
             listeners,
             children: props.children,
             wrappers,
@@ -227,3 +241,5 @@ export const hooksWrap = DeclarativeComponent => {
 
     return ReactFnComponent;
 };
+
+export default wrap;

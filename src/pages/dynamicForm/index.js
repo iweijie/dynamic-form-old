@@ -72,7 +72,7 @@ const DynamicFormConfig = ({ components, dispatch, items }) => {
                     <ActionBar />
                     <GlobalContext.Provider>
                         {map(json, sub => renderComponent(sub))}
-                        <Test />
+                        {/* <Test /> */}
                     </GlobalContext.Provider>
                 </div>
                 <RightSide />

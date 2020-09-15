@@ -24,6 +24,7 @@
     "@formily/antd-components": "^1.2.7",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.0.18",
+    "ahooks": "^2.6.0",
     "antd": "^4.4.2",
     "braft-editor": "^2.3.9",
     "chokidar": "^3.4.2",

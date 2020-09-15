@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ReactDom from 'react-dom';
-import { wrap } from '@/wrap/index';
 import Case from '../Case';
 import Input from './Input';
 

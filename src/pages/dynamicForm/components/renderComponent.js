@@ -11,6 +11,7 @@ import { get, map, size } from 'lodash';
 import getContext from '../context/index';
 import { isArray, isEmpty, merge } from 'lodash';
 import components from './index';
+import Actions from './Common/Actions';
 
 const getParentContextValues = paths => {
     const topContexts = useMemo(() => {
@@ -58,6 +59,7 @@ const renderComponent = (configurable, injectProps) => {
     // const [control, changeControl] = useState(createControl);
     // TODO 获取父级传递的数据有疑问
     const contextValues = {} || getParentContextValues(paths);
+
     const mergeProps = merge(
         { uuid, actions },
         contextValues,
@@ -69,12 +71,18 @@ const renderComponent = (configurable, injectProps) => {
     const Component = get(components, type, EmptyComponent);
     if (size(subCollection)) {
         return (
-            <Component key={uuid} {...mergeProps}>
-                {map(subCollection, sub => renderComponent(sub))}
-            </Component>
+            <Actions key={uuid} {...mergeProps}>
+                <Component>
+                    {map(subCollection, sub => renderComponent(sub))}
+                </Component>
+            </Actions>
         );
     } else {
-        return <Component key={uuid} {...mergeProps} />;
+        return (
+            <Actions key={uuid} {...mergeProps}>
+                <Component />
+            </Actions>
+        );
     }
 };
 

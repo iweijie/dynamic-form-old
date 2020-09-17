@@ -1,9 +1,34 @@
-import wrap from '@/wrap/hooks';
-import * as RawInput from './Input';
+import { useCallback, useMemo } from 'react';
+import Input from './Input';
+import { usePersistFn, useMount } from 'ahooks';
 
-export const identifiers = RawInput.identifiers || {};
-const Input = wrap(RawInput);
+export default (props, ref) => {
+    console.log('input---', props);
+    const { prefix, suffix, action, onChange, $listen, ...other } = props;
+    const handleChange = usePersistFn((_, e) => {
+        onChange(e);
+    });
 
-Object.assign(Input, identifiers);
+    useMount(() => {
+        $listen(params => {
+            console.log(params);
+        });
+    });
 
-export default Input;
+    const onChangeCustom = useMemo(() => [handleChange, true], [handleChange]);
+
+    return (
+        <Input {...other} onChange={onChangeCustom}>
+            {/* {prefix ? (
+                <Input.Prefix>
+                    <Icon type={prefix} />
+                </Input.Prefix>
+            ) : null}
+            {suffix ? (
+                <Input.Suffix>
+                    <Icon type={suffix} />
+                </Input.Suffix>
+            ) : null} */}
+        </Input>
+    );
+};

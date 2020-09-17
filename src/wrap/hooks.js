@@ -47,7 +47,6 @@ export const wrap = DeclarativeComponent => {
     } = DeclarativeComponent;
 
     const ReactFnComponent = props => {
-        console.log('ReactFnComponent', props);
         const [instance, setInstance] = useSetState(initialize);
         // 默认 state
         const [state, setState] = useSetState(() => {
@@ -140,6 +139,7 @@ export const wrap = DeclarativeComponent => {
         const listeners = useMemo(() => {
             return mapValues(defaultListeners, (defaultListener, name) => {
                 return (...runtimeArgs) => {
+                    console.log('runtimeArgs', runtimeArgs);
                     const listenerArg = pickListenerArg();
 
                     const normalizedResult = normalizeListener(props[name]);

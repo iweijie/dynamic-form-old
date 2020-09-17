@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { IndexModelState, ConnectRC, Loading, connect } from 'umi';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { map, find, get } from 'lodash';
+import { Icon } from 'antd';
 // import { ContainerType } from '@/DragComponents';
 import { clone } from '@/utils';
 // import FormContainer from '@/DragComponents/containers/Form';

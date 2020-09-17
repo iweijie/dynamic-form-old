@@ -1,24 +1,16 @@
-import react, { forwardRef } from 'react';
-import { Select as ASelect } from 'antd';
-import Fields from './Fields.json';
-import { map } from 'lodash';
+import { useCallback, useMemo } from 'react';
+import Select from './Select';
+import { usePersistFn } from 'ahooks';
 
-const { Option, OptGroup } = ASelect;
+export default (props, ref) => {
+    const { action, $listen, $trigger, ...other } = props;
 
-const Select = forwardRef((props, ref) => {
-    console.log('Select: ', props);
-    const { options = [], ...other } = props;
-    return (
-        <ASelect ref={ref} {...other}>
-            {map(options, option => {
-                return (
-                    <Option key={option.value} value={option.value}>
-                        {option.label}
-                    </Option>
-                );
-            })}
-        </ASelect>
-    );
-});
+    const handleChange = usePersistFn((_, value) => {
+        $trigger('onSelect', { value });
+        props.onChange(value);
+    });
 
-export default Select;
+    const onChange = useMemo(() => [handleChange, true], [handleChange]);
+
+    return <Select {...other} onChange={onChange} />;
+};

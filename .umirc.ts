@@ -8,8 +8,8 @@ export default defineConfig({
             routes: [
                 { path: '/dynamicForm', component: '@/pages/dynamicForm' },
                 {
-                    path: '/dynamicFormList',
-                    component: '@/pages/dynamicFormList',
+                    path: '/dynamicFormView',
+                    component: '@/pages/dynamicFormView',
                 },
                 { path: '/webList', component: '@/pages/webList' },
                 { path: '/example', component: '@/wrap/example/index' },

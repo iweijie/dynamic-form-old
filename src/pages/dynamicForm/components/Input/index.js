@@ -1,18 +1,16 @@
 import { useCallback, useMemo } from 'react';
 import Input from './Input';
-import { usePersistFn, useMount } from 'ahooks';
+import { usePersistFn } from 'ahooks';
 
-export default (props, ref) => {
-    console.log('input---', props);
+export default props => {
     const { prefix, suffix, action, onChange, $listen, ...other } = props;
     const handleChange = usePersistFn((_, e) => {
         onChange(e);
     });
 
-    useMount(() => {
-        $listen(params => {
-            console.log(params);
-        });
+    $listen(params => {
+        const { payload = {} } = params;
+        onChange(payload.value);
     });
 
     const onChangeCustom = useMemo(() => [handleChange, true], [handleChange]);

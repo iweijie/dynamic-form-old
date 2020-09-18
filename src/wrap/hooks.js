@@ -47,6 +47,7 @@ export const wrap = DeclarativeComponent => {
     } = DeclarativeComponent;
 
     const ReactFnComponent = props => {
+        console.log('ReactFnComponentHooks', props);
         const [instance, setInstance] = useSetState(initialize);
         // 默认 state
         const [state, setState] = useSetState(() => {

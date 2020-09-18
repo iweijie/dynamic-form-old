@@ -11,7 +11,7 @@ import { get, map, size } from 'lodash';
 import getContext from '../context/index';
 import { isArray, isEmpty, merge } from 'lodash';
 import components from './index';
-import Actions from './Common/Actions';
+import Monitor from '../hoc/Monitor';
 
 const getParentContextValues = paths => {
     const topContexts = useMemo(() => {
@@ -71,17 +71,17 @@ const renderComponent = (configurable, injectProps) => {
     const Component = get(components, type, EmptyComponent);
     if (size(subCollection)) {
         return (
-            <Actions key={uuid} {...mergeProps}>
+            <Monitor key={uuid} {...mergeProps}>
                 <Component>
                     {map(subCollection, sub => renderComponent(sub))}
                 </Component>
-            </Actions>
+            </Monitor>
         );
     } else {
         return (
-            <Actions key={uuid} {...mergeProps}>
+            <Monitor key={uuid} {...mergeProps}>
                 <Component />
-            </Actions>
+            </Monitor>
         );
     }
 };

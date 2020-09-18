@@ -6,7 +6,7 @@ export default (props, ref) => {
     const { action, $listen, $trigger, ...other } = props;
 
     const handleChange = usePersistFn((_, value) => {
-        $trigger('onSelect', { value });
+        $trigger({ value });
         props.onChange(value);
     });
 

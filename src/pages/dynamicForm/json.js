@@ -36,7 +36,7 @@ export default [
 
                 actions: [
                     {
-                        id: '112',
+                        uuid: 2,
                         // 可触发的机制都是在组件上配置的函数
                         trigger: 'onSelect',
                         // 配置携带参数, 可配置上下文中的属性值

@@ -3,14 +3,15 @@ import Select from './Select';
 import { usePersistFn } from 'ahooks';
 
 export default (props, ref) => {
+    console.log('props', props);
+    // $trigger({ value });
     const { action, $listen, $trigger, ...other } = props;
 
     const handleChange = usePersistFn((_, value) => {
-        $trigger({ value });
         props.onChange(value);
     });
 
-    const onChange = useMemo(() => [handleChange, true], [handleChange]);
+    const onSelect = useMemo(() => [handleChange, true], [handleChange]);
 
-    return <Select {...other} onChange={onChange} />;
+    return <Select {...other} onSelect={onSelect} />;
 };

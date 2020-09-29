@@ -134,10 +134,7 @@ export const getDefaultState = () => ({
     size: 'middle',
 });
 
-export const identifiers = {
-    Prefix: id(noop),
-    Suffix: id(noop),
-};
+export const identifiers = ['Prefix', 'Suffix'];
 
 export const defaultListeners = {
     onChange(_, e) {
@@ -152,15 +149,14 @@ export const defaultListeners = {
     },
 };
 
-export function render({ data, listeners, children }) {
-    const prefix = findIdentifierChildren(children, identifiers.Prefix);
-    const suffix = findIdentifierChildren(children, identifiers.Suffix);
+export function render({ data, listeners, identifiers, children }) {
+    console.log('identifiers', identifiers);
     return (
         <Input
             {...data}
             onChange={listeners.onChange}
-            prefix={prefix}
-            suffix={suffix}
+            prefix={identifiers.Prefix}
+            suffix={identifiers.Suffix}
         />
     );
 }

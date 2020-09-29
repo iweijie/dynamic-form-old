@@ -17,16 +17,15 @@ export default props => {
 
     return (
         <Input {...other} onChange={onChangeCustom}>
-            {/* {prefix ? (
-                <Input.Prefix>
-                    <Icon type={prefix} />
-                </Input.Prefix>
-            ) : null}
-            {suffix ? (
-                <Input.Suffix>
-                    <Icon type={suffix} />
-                </Input.Suffix>
-            ) : null} */}
+            {/* {prefix ? ( */}
+            <Input.Prefix>{/* <Icon type={prefix} /> */} Prefix</Input.Prefix>
+            {/* ) : null}
+            {suffix ? ( */}
+            <Input.Suffix>
+                Suffix
+                {/* <Icon type={suffix} /> */}
+            </Input.Suffix>
+            {/* ) : null} */}
         </Input>
     );
 };

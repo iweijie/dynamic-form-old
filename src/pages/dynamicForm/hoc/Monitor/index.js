@@ -2,6 +2,7 @@ import React, { useCallback, useRef } from 'react';
 import { useUpdateEffect, useSetState, useMount, useUnmount } from 'ahooks';
 import observer from './observer';
 import isFunction from 'lodash/isFunction';
+import get from 'lodash/get';
 
 /**
  *  预想的 actions 的数据格式
@@ -21,15 +22,14 @@ import isFunction from 'lodash/isFunction';
 // 现在的做法是  每一个组件只有一个触发和监听的端口，也就是只有一个输入和输出， 感觉这样够了
 // TODO 是否需要拆分每一个组件的事件
 
-export default props => {
+const Monitor = props => {
     const { children, uuid, actions, ...other } = props;
-    const handleListenRef = useRef();
+    const handleListenRef = useRef({});
     // 不变的监听事件
     const handleListen = useCallback(
         params => {
-            if (isFunction(handleListenRef.current)) {
-                handleListenRef.current(params);
-            }
+            const { type, payload } = params;
+            const handle = get(handleListenRef.current, `${uuid}_${type}`);
         },
         [handleListenRef],
     );
@@ -50,16 +50,18 @@ export default props => {
 
     // 用户主动注册监听事件， 后续 $trigger触发的时候分发触发
     const $listen = useCallback(
-        handle => {
+        (type, handle) => {
             if (isFunction(handle)) {
-                handleListenRef.current = handle;
-            } else {
-                handleListenRef.current = null;
+                handleListenRef.current = {
+                    [`${uuid}_${type}`]: handle,
+                    ...handleListenRef.current,
+                };
             }
         },
         [uuid, actions],
     );
 
+    // 组件挂载监听
     useMount(() => {
         observer.on(uuid, handleListen);
     });
@@ -71,3 +73,5 @@ export default props => {
 
     return React.cloneElement(children, { ...other, $trigger, $listen });
 };
+
+export default Monitor;

@@ -7,8 +7,16 @@ import {
     useMount,
     useUnmount,
 } from 'ahooks';
-import { noop, map } from 'lodash';
-import { pick, mapValues, inject } from './utils';
+import { noop, map, forEach } from 'lodash';
+import {
+    pick,
+    mapValues,
+    inject,
+    findIdentifierChildren,
+    id,
+    noop as utilNoop,
+    markerChild,
+} from './utils';
 
 export const ReactComponentFunctionNames = [
     'componentDidMount',
@@ -36,6 +44,8 @@ export const wrap = DeclarativeComponent => {
         getDefaultState = () => ({}),
         // 默认监听事件
         defaultListeners = {},
+        // 标识符
+        identifiers = [],
         // 拦截器
         defaultInterceptors = {},
         // 包装子组件
@@ -45,6 +55,8 @@ export const wrap = DeclarativeComponent => {
         // 渲染函数
         render,
     } = DeclarativeComponent;
+
+    const rewriteIdentifiers = {};
 
     const ReactFnComponent = props => {
         console.log('ReactFnComponentHooks', props);
@@ -227,18 +239,30 @@ export const wrap = DeclarativeComponent => {
             );
         }, [defaultWrappers]);
 
+        // 获取外界设置的 插槽
+        const { identifiers, children } = markerChild(
+            props.children,
+            rewriteIdentifiers,
+        );
         return render({
             data: getCurrentData(),
             instance,
             interceptors,
             listeners,
-            children: props.children,
+            children,
             wrappers,
+            identifiers,
         });
     };
 
     ReactFnComponent.propTypes = defaultStateTypes;
     ReactFnComponent.displayName = displayName;
+
+    forEach(identifiers, identifier => {
+        ReactFnComponent[identifier] = rewriteIdentifiers[identifier] = id(
+            utilNoop,
+        );
+    });
 
     return ReactFnComponent;
 };

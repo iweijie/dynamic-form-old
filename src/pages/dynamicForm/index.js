@@ -7,6 +7,7 @@ import { Icon } from 'antd';
 import { clone } from '@/utils';
 // import FormContainer from '@/DragComponents/containers/Form';
 import LeftSide from '@/components/LeftSide';
+import Form from './components/Form/index';
 import RightSide from '@/components/RightSide';
 import ActionBar from '@/components/ActionBar';
 // import Container from '@/components/Container';
@@ -72,7 +73,8 @@ const DynamicFormConfig = ({ components, dispatch, items }) => {
                 <div style={{ flex: 1 }}>
                     <ActionBar />
                     <GlobalContext.Provider>
-                        {map(json, sub => renderComponent(sub))}
+                        <Form>{map(json, sub => renderComponent(sub))}</Form>
+
                         {/* <Test /> */}
                     </GlobalContext.Provider>
                 </div>

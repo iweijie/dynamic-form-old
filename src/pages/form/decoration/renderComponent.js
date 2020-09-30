@@ -55,34 +55,38 @@ const renderComponent = (configurable, injectProps) => {
         subCollection,
     } = configurable;
 
-    // const [control, changeControl] = useState(createControl);
-    // TODO 获取父级传递的数据有疑问
-    const contextValues = useContext(FormContext);
-
-    const mergeProps = merge(
-        { uuid, actions },
-        contextValues,
-        config,
-        props,
-        injectProps,
-    );
-    console.log(mergeProps);
     const Component = get(components, type, EmptyComponent);
-    if (size(subCollection)) {
-        return (
-            <Monitor key={uuid} {...mergeProps}>
-                <Component>
-                    {map(subCollection, sub => renderComponent(sub))}
-                </Component>
-            </Monitor>
-        );
-    } else {
-        return (
-            <Monitor key={uuid} {...mergeProps}>
-                <Component />
-            </Monitor>
-        );
-    }
+    return (
+        <FormContext.Consumer key={uuid}>
+            {contextValues => {
+                const mergeProps = merge(
+                    { uuid, actions },
+                    contextValues,
+                    config,
+                    props,
+                    injectProps,
+                );
+
+                if (size(subCollection)) {
+                    return (
+                        <Monitor {...mergeProps}>
+                            <Component>
+                                {map(subCollection, sub =>
+                                    renderComponent(sub),
+                                )}
+                            </Component>
+                        </Monitor>
+                    );
+                } else {
+                    return (
+                        <Monitor {...mergeProps}>
+                            <Component />
+                        </Monitor>
+                    );
+                }
+            }}
+        </FormContext.Consumer>
+    );
 };
 
 export default renderComponent;

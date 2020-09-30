@@ -10,7 +10,7 @@ import FormItem from './FormItem/index';
 
 const components = { Form, FormItem, OriginalLabel };
 
-const ATest = forwardRef((props, ref) => {
+const AInput = forwardRef((props, ref) => {
     const { id, value = '', onChange } = props;
     return (
         <input
@@ -26,7 +26,7 @@ const ATest = forwardRef((props, ref) => {
 const FormComponent = {
     Input,
     Select,
-    ATest,
+    AInput,
 };
 
 Object.keys(FormComponent).map(key => {
@@ -35,10 +35,26 @@ Object.keys(FormComponent).map(key => {
         const { pickFormItemProps, componentProps, visible } = getFormItemProps(
             props,
         );
+
         if (!visible) return null;
-        // console.log('pickFormItemProps', pickFormItemProps);
+
+        if (Com === Select) {
+            const name = pickFormItemProps.name;
+            const label = `${name}Label`;
+            return (
+                <>
+                    <AForm.Item {...pickFormItemProps}>
+                        <Com {...componentProps} />
+                    </AForm.Item>
+                    <AForm.Item name={label} hidden>
+                        <AInput />
+                    </AForm.Item>
+                </>
+            );
+        }
+
         return (
-            <AForm.Item {...pickFormItemProps} initialValue="test">
+            <AForm.Item {...pickFormItemProps}>
                 <Com {...componentProps} />
             </AForm.Item>
         );

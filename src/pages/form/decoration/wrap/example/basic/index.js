@@ -18,8 +18,6 @@ export default () => {
         }, 3000);
     }, [setTest]);
 
-    console.log(test);
-
     return (
         <div>
             {/* <Case title="普通 input">

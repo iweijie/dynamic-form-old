@@ -2,9 +2,12 @@ import PropTypes from 'prop-types';
 import React, { useMemo, useCallback } from 'react';
 import { Form as AForm, Button } from 'antd';
 import FormFieldsJSON from './FormFields.json';
+import observer from '../../utils/observer';
 import { rewriteFormItemLayoutProps } from '../../utils';
-import { isEmpty, pick, get, noop } from 'lodash';
-import { FormProvider } from './FormContext';
+import { isEmpty, map, pick, get, noop } from 'lodash';
+import FormContext from './FormContext';
+import useSameValue from '../../hooks/useSameValue';
+import renderComponent from '../../decoration/renderComponent';
 const { useForm } = AForm;
 
 const FormProviderFields = [
@@ -18,7 +21,7 @@ const FormProviderFields = [
 
 const Form = props => {
     const [form] = useForm();
-    const { uuid, actions, children, ...other } = props;
+    const { uuid, actions, JSON, ...other } = props;
     const { pickProviderValue, pickItem } = useMemo(() => {
         const FormFields = FormFieldsJSON.body.map(v => v.field);
         const pickItem = pick(other, FormFields);
@@ -56,10 +59,22 @@ const Form = props => {
         [form],
     );
 
-    const onValuesChange = useCallback((changedValues, allValues) => {}, []);
+    const onValuesChange = useCallback((changedValues = {}, allValues) => {
+        Object.keys(changedValues).forEach(key => {
+            observer.emit(key, changedValues[key]);
+        });
+    }, []);
+
+    const value = useMemo(() => {
+        return {
+            ...pickProviderValue,
+            form,
+        };
+    }, [pickProviderValue, form]);
+    useSameValue(value);
 
     return (
-        <FormProvider {...pickProviderValue} form={form} uuid={uuid}>
+        <FormContext.Provider value={value}>
             <AForm
                 {...pickItem}
                 form={form}
@@ -67,10 +82,10 @@ const Form = props => {
                 onFinishFailed={onFinishFailed}
                 onValuesChange={onValuesChange}
             >
-                {children}
+                {map(JSON, item => renderComponent(item))}
             </AForm>
             <Button onClick={handleGetValue}>点我获取值</Button>
-        </FormProvider>
+        </FormContext.Provider>
     );
 };
 

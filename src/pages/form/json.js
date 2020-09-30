@@ -57,12 +57,12 @@ export default [
         uuid: 2,
         type: 'Input',
         config: {
+            initialValue: '就是一个字',
             labelCol: 4,
             wrapperCol: 12,
             name: 'iweijie1',
             required: true,
             label: '就是一个字',
-            initialValue: '',
             prefix: 'step-backward',
         },
         actions: [],

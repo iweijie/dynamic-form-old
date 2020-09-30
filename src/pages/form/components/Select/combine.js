@@ -36,11 +36,11 @@ export const defaultListeners = {
             value,
         };
     },
-    onSelect(_, value) {
-        return {
-            value,
-        };
-    },
+    // onSelect(_, value) {
+    //     return {
+    //         value,
+    //     };
+    // },
 };
 
 export function render({ data, listeners }) {

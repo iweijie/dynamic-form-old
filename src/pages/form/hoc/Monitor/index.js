@@ -75,8 +75,8 @@ const Monitor = props => {
     return React.cloneElement(children, {
         ...other,
         name,
-        $trigger,
-        $listen,
+        // $trigger,
+        // $listen,
     });
 };
 

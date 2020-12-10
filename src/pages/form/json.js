@@ -40,10 +40,32 @@ export default [
         config: {
             name: 'select',
             required: true,
+
+            // isAsync : Boolean ; 是否异步
+            // isPaging ：Boolean ;是否分页请求
+            // pageSize ：Number ; 分页数据大小，默认20，
+            // page：Number ；分页页面， 默认，1，
+            // url: String, 异步链接
+            // list: Array， 列表数据
+            // listConfig :  {
+            //     label：label显示字段默认 "label",
+            //     value: value 显示字段，默认 "value",
+            //     _ref: Any， 原始值的 option 值，
+            //     _disabled: Boolean， 当前选项是否可选，默认 true，
+            //     _hide: Boolean, 当前选项是否显示， 默认 true
+            // }
+
             label: 'iweijie',
             initialValue: 'test',
-            isAsync: true,
-            requestConfig: {},
+            requestConfig: {
+                isAsync: true,
+                isPaging: false,
+                pageSize: 20,
+                page: 0,
+                url: 'https://meishij.iweijie.cn/api/cookbook/recommend',
+                labelField: 'title',
+                valueField: 'detailID',
+            },
             options: [
                 { value: 'test', label: '测试' },
                 { value: 'iweijie', label: 'weijie' },

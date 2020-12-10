@@ -42,6 +42,8 @@ const Form = props => {
             pickItem,
         };
     }, [props]);
+    useSameValue(props, 'props');
+    console.log(props);
     const handleGetValue = () => {
         console.log(form.getFieldsValue());
     };

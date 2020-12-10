@@ -8,10 +8,10 @@ export default props => {
         onChange(e);
     });
 
-    $listen(params => {
-        const { payload = {} } = params;
-        onChange(payload.value);
-    });
+    // $listen(params => {
+    //     const { payload = {} } = params;
+    //     onChange(payload.value);
+    // });
 
     const onChangeCustom = useMemo(() => [handleChange, true], [handleChange]);
 
